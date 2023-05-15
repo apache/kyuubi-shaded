@@ -52,6 +52,7 @@
 
     <modules>
         <module>kyuubi-shaded-force-shading</module>
+        <module>kyuubi-shaded-zookeeper-parent</module>
     </modules>
 
     <scm>
@@ -98,7 +99,7 @@
         <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss z</maven.build.timestamp.format>
 
         <!-- Package to use when relocating shaded classes. -->
-        <kyuubi.shade.packageName>org.apache.kyuubi.shade</kyuubi.shade.packageName>
+        <shading.prefix>org.apache.kyuubi.shaded</shading.prefix>
 
         <!-- Needed for Spotless style check-->
         <spotless.java.googlejavaformat.version>1.7</spotless.java.googlejavaformat.version>
