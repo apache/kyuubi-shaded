@@ -29,8 +29,8 @@ under the License.
     </parent>
 
     <artifactId>kyuubi-shaded-zookeeper-parent</artifactId>
-    <name>kyuubi-shaded-zookeeper-parent</name>
     <packaging>pom</packaging>
+    <name>kyuubi-shaded-zookeeper-parent</name>
 
     <modules>
         <module>kyuubi-shaded-zookeeper-34</module>
@@ -50,10 +50,10 @@ under the License.
                 <executions>
                     <execution>
                         <id>shade-kyuubi</id>
-                        <phase>package</phase>
                         <goals>
                             <goal>shade</goal>
                         </goals>
+                        <phase>package</phase>
                         <configuration>
                             <createDependencyReducedPom>true</createDependencyReducedPom>
                             <dependencyReducedPomLocation>${project.basedir}/target/dependency-reduced-pom.xml</dependencyReducedPomLocation>
