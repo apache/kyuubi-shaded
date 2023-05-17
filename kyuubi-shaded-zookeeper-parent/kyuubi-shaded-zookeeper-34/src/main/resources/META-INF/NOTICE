@@ -6,8 +6,8 @@ The Apache Software Foundation (https://www.apache.org/).
 
 This project bundles the following dependencies under the Apache Software License 2.0 (https://www.apache.org/licenses/LICENSE-2.0.txt)
 
-- com.google.guava:guava:27.0.1-jre
-- org.apache.curator:curator-client:4.2.0
-- org.apache.curator:curator-framework:4.2.0
-- org.apache.curator:curator-recipes:4.2.0
+- com.google.guava:guava:16.0.1
+- org.apache.curator:curator-client:2.12.0
+- org.apache.curator:curator-framework:2.12.0
+- org.apache.curator:curator-recipes:2.12.0
 - org.apache.zookeeper:zookeeper:3.4.14
