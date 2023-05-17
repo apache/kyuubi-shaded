@@ -150,7 +150,7 @@ public final class StaticHostProvider implements HostProvider {
 
     InetSocketAddress curAddr = serverAddresses.get(currentIndex);
     try {
-      String curHostString = getHostString(curAddr);
+      String curHostString = curAddr.getHostString();
       List<InetAddress> resolvedAddresses =
           new ArrayList<InetAddress>(Arrays.asList(this.resolver.getAllByName(curHostString)));
       if (resolvedAddresses.isEmpty()) {
@@ -159,6 +159,7 @@ public final class StaticHostProvider implements HostProvider {
       Collections.shuffle(resolvedAddresses);
       return new InetSocketAddress(resolvedAddresses.get(0), curAddr.getPort());
     } catch (UnknownHostException e) {
+      LOG.error("Unable to resolve address: {}", curAddr, e);
       return curAddr;
     }
   }
