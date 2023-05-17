@@ -359,14 +359,15 @@
                     <artifactId>apache-rat-plugin</artifactId>
                     <inherited>true</inherited>
                     <configuration>
-                        <excludeSubProjects>false</excludeSubProjects>
+                        <excludeSubProjects>true</excludeSubProjects>
                         <numUnapprovedLicenses>0</numUnapprovedLicenses>
+                        <basedir>${project.basedir}</basedir>
                         <licenseFamilies>
                             <licenseFamily implementation="org.apache.rat.license.SimpleLicenseFamily">
                                 <familyName>Apache License 2.0</familyName>
                             </licenseFamily>
                         </licenseFamilies>
-                        <excludesFile>.rat-excludes</excludesFile>
+                        <excludesFile>${maven.multiModuleProjectDirectory}/.rat-excludes</excludesFile>
                     </configuration>
                     <executions>
                         <execution>
