@@ -37,11 +37,6 @@ under the License.
         <module>kyuubi-shaded-zookeeper-36</module>
     </modules>
 
-    <properties>
-        <shading.zookeeper.prefix>${shading.prefix}.zookeeper</shading.zookeeper.prefix>
-        <shading.curator.prefix>${shading.prefix}.curator</shading.curator.prefix>
-    </properties>
-
     <build>
         <plugins>
             <plugin>
@@ -65,27 +60,23 @@ under the License.
                             <relocations>
                                 <relocation>
                                     <pattern>org.apache.zookeeper</pattern>
-                                    <shadedPattern>${shading.zookeeper.prefix}.org.apache.zookeeper</shadedPattern>
-                                </relocation>
-                                <relocation>
-                                    <pattern>io.netty</pattern>
-                                    <shadedPattern>${shading.zookeeper.prefix}.io.netty</shadedPattern>
+                                    <shadedPattern>${shading.prefix}.zookeeper</shadedPattern>
                                 </relocation>
                                 <relocation>
                                     <pattern>org.apache.jute</pattern>
-                                    <shadedPattern>${shading.zookeeper.prefix}.org.apache.jute</shadedPattern>
+                                    <shadedPattern>${shading.prefix}.jute</shadedPattern>
                                 </relocation>
                                 <relocation>
                                     <pattern>com.codahale.metrics</pattern>
-                                    <shadedPattern>${shading.zookeeper.prefix}.com.codahale.metrics</shadedPattern>
+                                    <shadedPattern>${shading.prefix}.metrics</shadedPattern>
                                 </relocation>
                                 <relocation>
                                     <pattern>org.apache.curator</pattern>
-                                    <shadedPattern>${shading.curator.prefix}.org.apache.curator</shadedPattern>
+                                    <shadedPattern>${shading.prefix}.curator</shadedPattern>
                                 </relocation>
                                 <relocation>
                                     <pattern>com.google</pattern>
-                                    <shadedPattern>${shading.curator.prefix}.com.google</shadedPattern>
+                                    <shadedPattern>${shading.prefix}.google</shadedPattern>
                                 </relocation>
                             </relocations>
                         </configuration>
