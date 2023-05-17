@@ -34,6 +34,7 @@ under the License.
         <zookeeper.version>3.6.4</zookeeper.version>
         <curator.version>5.4.0</curator.version>
         <netty.version>4.1.91.Final</netty.version>
+        <snappy.version>1.1.8.4</snappy.version>
     </properties>
 
     <dependencyManagement>
@@ -146,6 +147,12 @@ under the License.
                     <artifactId>slf4j-api</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+        <dependency>
+            <!-- required by kyuubi embedded Zookeeper server to bootstrap -->
+            <groupId>org.xerial.snappy</groupId>
+            <artifactId>snappy-java</artifactId>
+            <version>${snappy.version}</version>
         </dependency>
     </dependencies>
 </project>
