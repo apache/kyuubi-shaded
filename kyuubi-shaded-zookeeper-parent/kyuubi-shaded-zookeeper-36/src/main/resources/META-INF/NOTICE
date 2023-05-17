@@ -22,3 +22,4 @@ This project bundles the following dependencies under the Apache Software Licens
 - org.apache.curator:curator-recipes:5.4.0
 - org.apache.zookeeper:zookeeper-jute:3.6.4
 - org.apache.zookeeper:zookeeper:3.6.4
+- org.xerial.snappy:xerial-java:1.1.8.4
