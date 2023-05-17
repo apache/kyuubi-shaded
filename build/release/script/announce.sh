@@ -47,7 +47,7 @@ Hi all,
 The Apache Kyuubi community is pleased to announce that
 Apache Kyuubi Shaded ${release_version} has been released!
 
-The full release notes and download links are available at:
+The full release notes are available at:
 Release Notes: https://kyuubi.apache.org/release/kyuubi-shaded-${release_version}.html
 
 To learn more about Apache Kyuubi, please see
