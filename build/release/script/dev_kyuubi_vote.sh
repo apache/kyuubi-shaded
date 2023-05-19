@@ -81,11 +81,11 @@ Content:
 Hello Apache Kyuubi PMC and Community,
 
 Please vote on releasing the following candidate as
-Apache Kyuubi version ${release_version}.
+Apache Kyuubi Shaded version ${release_version}.
 
 The VOTE will remain open for at least 72 hours.
 
-[ ] +1 Release this package as Apache Kyuubi ${release_version}
+[ ] +1 Release this package as Apache Kyuubi Shaded ${release_version}
 [ ] +0
 [ ] -1 Do not release this package because ...
 
