@@ -115,21 +115,21 @@ under the License.
                             <relocations>
                                 <relocation>
                                     <pattern>org.apache.hive.service.rpc.thrift</pattern>
-                                    <shadedPattern>${shading.prefix}.org.apache.hive.service.rpc.thrift</shadedPattern>
+                                    <shadedPattern>${shading.prefix}.hive.service.rpc.thrift</shadedPattern>
                                     <includes>
                                         <include>org.apache.hive.service.rpc.thrift.**</include>
                                     </includes>
                                 </relocation>
                                 <relocation>
                                     <pattern>com.facebook.fb303</pattern>
-                                    <shadedPattern>${shading.prefix}.com.facebook.fb303</shadedPattern>
+                                    <shadedPattern>${shading.prefix}.fb303</shadedPattern>
                                     <includes>
                                         <include>com.facebook.fb303.**</include>
                                     </includes>
                                 </relocation>
                                 <relocation>
                                     <pattern>org.apache.thrift</pattern>
-                                    <shadedPattern>${shading.prefix}.org.apache.thrift</shadedPattern>
+                                    <shadedPattern>${shading.prefix}.thrift</shadedPattern>
                                     <includes>
                                         <include>org.apache.thrift.**</include>
                                     </includes>
