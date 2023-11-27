@@ -52,6 +52,7 @@
 
     <modules>
         <module>kyuubi-shaded-force-shading</module>
+        <module>kyuubi-shaded-hive-service-rpc</module>
         <module>kyuubi-shaded-zookeeper-parent</module>
     </modules>
 
