@@ -24,17 +24,17 @@ under the License.
 
     <parent>
         <groupId>org.apache.kyuubi</groupId>
-        <artifactId>kyuubi-shaded-parent</artifactId>
+        <artifactId>kyuubi-relocated-parent</artifactId>
         <version>0.2.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>kyuubi-shaded-zookeeper-parent</artifactId>
+    <artifactId>kyuubi-relocated-zookeeper-parent</artifactId>
     <packaging>pom</packaging>
-    <name>kyuubi-shaded-zookeeper-parent</name>
+    <name>kyuubi-relocated-zookeeper-parent</name>
 
     <modules>
-        <module>kyuubi-shaded-zookeeper-34</module>
-        <module>kyuubi-shaded-zookeeper-36</module>
+        <module>kyuubi-relocated-zookeeper-34</module>
+        <module>kyuubi-relocated-zookeeper-36</module>
     </modules>
 
     <build>
