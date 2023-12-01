@@ -21,6 +21,8 @@
 **/*.log
 **/*.md
 **/*.iml
+**/*.tmp
+**/*.temp
 **/target/**
 **/out/**
 **/licenses/LICENSE*
