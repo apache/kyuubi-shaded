@@ -6,6 +6,7 @@ All relocated classes is under the package `org.apache.kyuubi.shaded`, and the b
 with `kyuubi-relocated-`.
 
 ## DISCLAIMER
+
 This project is for Apache Kyuubi internal use. Included libs and/or their versions are subject to change
 at the dictate of Kyuubi without regard to the concern of others!
 
