@@ -97,10 +97,6 @@ under the License.
                                     <pattern>com.google</pattern>
                                     <shadedPattern>${shading.prefix}.google</shadedPattern>
                                 </relocation>
-                                <relocation>
-                                    <pattern>org.xerial.snappy</pattern>
-                                    <shadedPattern>${shading.prefix}.snappy</shadedPattern>
-                                </relocation>
                             </relocations>
                         </configuration>
                     </execution>
