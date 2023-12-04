@@ -24,11 +24,12 @@ under the License.
 
     <parent>
         <groupId>org.apache.kyuubi</groupId>
-        <artifactId>kyuubi-shaded-zookeeper-parent</artifactId>
+        <artifactId>kyuubi-relocated-zookeeper-parent</artifactId>
         <version>0.2.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>kyuubi-shaded-zookeeper-36</artifactId>
+    <artifactId>kyuubi-relocated-zookeeper-36</artifactId>
+    <description>Relocated Zookeeper 3.6 classes used by Kyuubi internally.</description>
 
     <properties>
         <zookeeper.version>3.6.4</zookeeper.version>
