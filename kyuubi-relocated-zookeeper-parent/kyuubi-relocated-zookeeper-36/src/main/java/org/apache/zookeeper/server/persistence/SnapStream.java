@@ -29,7 +29,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
-import java.util.Arrays;
 import java.util.zip.Adler32;
 import java.util.zip.CheckedInputStream;
 import java.util.zip.CheckedOutputStream;
@@ -40,9 +39,6 @@ import org.apache.jute.OutputArchive;
 import org.apache.zookeeper.common.AtomicFileOutputStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.xerial.snappy.SnappyCodec;
-import org.xerial.snappy.SnappyInputStream;
-import org.xerial.snappy.SnappyOutputStream;
 
 /** Represent the Stream used in serialize and deserialize the Snapshot. */
 public class SnapStream {
@@ -106,8 +102,8 @@ public class SnapStream {
         is = new GZIPInputStream(fis);
         break;
       case SNAPPY:
-        is = new SnappyInputStream(fis);
-        break;
+        throw new UnsupportedOperationException(
+            "[KYUUBI-SHADED #28] " + ZOOKEEPER_SHAPSHOT_STREAM_MODE + " does not support snappy");
       case CHECKED:
       default:
         is = new BufferedInputStream(fis);
@@ -131,8 +127,8 @@ public class SnapStream {
         os = new GZIPOutputStream(fos);
         break;
       case SNAPPY:
-        os = new SnappyOutputStream(fos);
-        break;
+        throw new UnsupportedOperationException(
+            "[KYUUBI-SHADED #28] " + ZOOKEEPER_SHAPSHOT_STREAM_MODE + " does not support snappy");
       case CHECKED:
       default:
         os = new BufferedOutputStream(fos);
@@ -184,8 +180,8 @@ public class SnapStream {
         isValid = isValidGZipStream(file);
         break;
       case SNAPPY:
-        isValid = isValidSnappyStream(file);
-        break;
+        throw new UnsupportedOperationException(
+            "[KYUUBI-SHADED #28] " + ZOOKEEPER_SHAPSHOT_STREAM_MODE + " does not support snappy");
       case CHECKED:
       default:
         isValid = isValidCheckedStream(file);
@@ -252,20 +248,8 @@ public class SnapStream {
    * @throws IOException
    */
   private static boolean isValidSnappyStream(File f) throws IOException {
-    byte[] byteArray = new byte[SnappyCodec.MAGIC_LEN];
-    try (FileInputStream fis = new FileInputStream(f)) {
-      if (SnappyCodec.MAGIC_LEN != fis.read(byteArray, 0, SnappyCodec.MAGIC_LEN)) {
-        LOG.error("Read incorrect number of bytes from {}", f.getName());
-        return false;
-      }
-      ByteBuffer bb = ByteBuffer.wrap(byteArray);
-      byte[] magicHeader = new byte[SnappyCodec.MAGIC_LEN];
-      bb.get(magicHeader, 0, SnappyCodec.MAGIC_LEN);
-      return Arrays.equals(magicHeader, SnappyCodec.getMagicHeader());
-    } catch (FileNotFoundException e) {
-      LOG.error("Unable to open file {}", f.getName(), e);
-      return false;
-    }
+    throw new UnsupportedOperationException(
+        "[KYUUBI-SHADED #28] " + ZOOKEEPER_SHAPSHOT_STREAM_MODE + " does not support snappy");
   }
 
   /**
