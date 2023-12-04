@@ -83,6 +83,13 @@ Hello Apache Kyuubi PMC and Community,
 Please vote on releasing the following candidate as
 Apache Kyuubi Shaded version ${release_version}.
 
+Apache Kyuubi Shaded project packages relocated third-party libraries
+used by [Apache Kyuubi](https://kyuubi.apache.org/).
+
+DISCLAIMER: this project is for Apache Kyuubi internal use.
+Included libs and/or their versions are subject to change at the dictate
+of Kyuubi without regard to the concern of others!
+
 The VOTE will remain open for at least 72 hours.
 
 [ ] +1 Release this package as Apache Kyuubi Shaded ${release_version}
