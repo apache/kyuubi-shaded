@@ -32,6 +32,7 @@ under the License.
     <description>Relocated Zookeeper 3.6 classes used by Kyuubi internally.</description>
 
     <properties>
+        <slf4j.version>1.7.36</slf4j.version>
         <zookeeper.version>3.6.4</zookeeper.version>
         <curator.version>5.4.0</curator.version>
         <netty.version>4.1.91.Final</netty.version>
@@ -56,6 +57,13 @@ under the License.
     </dependencyManagement>
 
     <dependencies>
+        <dependency>
+            <!-- kyuubi distribution provides logging classes -->
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+            <scope>provided</scope>
+        </dependency>
         <dependency>
             <groupId>org.apache.zookeeper</groupId>
             <artifactId>zookeeper</artifactId>
