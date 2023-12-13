@@ -87,7 +87,7 @@ under the License.
                                 </relocation>
                                 <relocation>
                                     <pattern>com.codahale.metrics</pattern>
-                                    <shadedPattern>${shading.prefix}.metrics</shadedPattern>
+                                    <shadedPattern>${shading.prefix}.zookeeper.metrics</shadedPattern>
                                 </relocation>
                                 <relocation>
                                     <pattern>org.apache.curator</pattern>
@@ -95,7 +95,7 @@ under the License.
                                 </relocation>
                                 <relocation>
                                     <pattern>com.google</pattern>
-                                    <shadedPattern>${shading.prefix}.google</shadedPattern>
+                                    <shadedPattern>${shading.prefix}.curator.google</shadedPattern>
                                 </relocation>
                             </relocations>
                         </configuration>
