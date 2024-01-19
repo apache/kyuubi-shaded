@@ -36,6 +36,7 @@ under the License.
         <curator.version>2.12.0</curator.version>
         <slf4j.version>1.7.25</slf4j.version>
         <yetus.version>0.5.0</yetus.version>
+        <jline.version>0.9.94</jline.version>
     </properties>
 
     <dependencyManagement>
@@ -62,6 +63,12 @@ under the License.
             <scope>provided</scope>
         </dependency>
         <dependency>
+            <groupId>jline</groupId>
+            <artifactId>jline</artifactId>
+            <version>${jline.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
             <groupId>org.apache.zookeeper</groupId>
             <artifactId>zookeeper</artifactId>
             <exclusions>
@@ -69,11 +76,6 @@ under the License.
                     <!-- only required for ZK servers, not clients -->
                     <groupId>io.netty</groupId>
                     <artifactId>netty</artifactId>
-                </exclusion>
-                <exclusion>
-                    <!-- only required for ZK console shell -->
-                    <groupId>jline</groupId>
-                    <artifactId>jline</artifactId>
                 </exclusion>
                 <exclusion>
                     <!-- kyuubi distribution provides logging classes -->
