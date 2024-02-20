@@ -36,7 +36,7 @@ under the License.
         <curator.version>2.12.0</curator.version>
         <slf4j.version>1.7.25</slf4j.version>
         <yetus.version>0.5.0</yetus.version>
-        <jline.version>0.9.94</jline.version>
+        <jline.version>2.14.6</jline.version>
     </properties>
 
     <dependencyManagement>
