@@ -21,21 +21,16 @@ package org.apache.hadoop.hive.metastore.security;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.security.token.delegation.AbstractDelegationTokenIdentifier;
 
-/**
- * A delegation token identifier that is specific to Hive.
- */
-public class DelegationTokenIdentifier
-    extends AbstractDelegationTokenIdentifier {
+/** A delegation token identifier that is specific to Hive. */
+public class DelegationTokenIdentifier extends AbstractDelegationTokenIdentifier {
   public static final Text HIVE_DELEGATION_KIND = new Text("HIVE_DELEGATION_TOKEN");
 
-  /**
-   * Create an empty delegation token identifier for reading into.
-   */
-  public DelegationTokenIdentifier() {
-  }
+  /** Create an empty delegation token identifier for reading into. */
+  public DelegationTokenIdentifier() {}
 
   /**
    * Create a new delegation token identifier
+   *
    * @param owner the effective username of the token owner
    * @param renewer the username of the renewer
    * @param realUser the real username of the token owner
@@ -48,5 +43,4 @@ public class DelegationTokenIdentifier
   public Text getKind() {
     return HIVE_DELEGATION_KIND;
   }
-
 }

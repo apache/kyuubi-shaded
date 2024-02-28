@@ -21,12 +21,11 @@ package org.apache.hadoop.hive.common;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
 import java.util.List;
-
-import org.apache.curator.framework.api.ACLProvider;
-import org.apache.curator.framework.CuratorFrameworkFactory;
+import java.util.concurrent.TimeUnit;
 import org.apache.curator.framework.CuratorFramework;
+import org.apache.curator.framework.CuratorFrameworkFactory;
+import org.apache.curator.framework.api.ACLProvider;
 import org.apache.curator.framework.recipes.nodes.PersistentNode;
 import org.apache.curator.retry.ExponentialBackoffRetry;
 import org.apache.curator.retry.RetryOneTime;
@@ -57,9 +56,7 @@ public class ZooKeeperHiveHelper {
   public static final Logger LOG = LoggerFactory.getLogger(ZooKeeperHiveHelper.class.getName());
   public static final String ZOOKEEPER_PATH_SEPARATOR = "/";
 
-  /**
-   * ZooKeeperHiveHelperBuilder. A builder class to initialize ZooKeeperHiveHelper.
-   */
+  /** ZooKeeperHiveHelperBuilder. A builder class to initialize ZooKeeperHiveHelper. */
   public static class ZooKeeperHiveHelperBuilder {
     private String quorum = null;
     private String clientPort = null;
@@ -204,7 +201,6 @@ public class ZooKeeperHiveHelper {
   private boolean deregisteredWithZooKeeper = false; // Set to true only when deregistration happens
   private PersistentNode znode;
 
-
   public ZooKeeperHiveHelper(ZooKeeperHiveHelperBuilder builder) {
     // Get the ensemble server addresses in the format host1:port1, host2:port2, ... . Append
     // the configured port to hostname if the hostname doesn't contain a port.
@@ -230,17 +226,15 @@ public class ZooKeeperHiveHelper {
     this.maxRetries = builder.getMaxRetries();
     this.sslEnabled = builder.isSslEnabled();
     this.sslZookeeperFactory =
-        new SSLZookeeperFactory(sslEnabled,
+        new SSLZookeeperFactory(
+            sslEnabled,
             builder.getKeyStoreLocation(),
             builder.getKeyStorePassword(),
             builder.getTrustStoreLocation(),
             builder.getTrustStorePassword());
-
   }
 
-  /**
-   * Get the ensemble server addresses. The format is: host1:port, host2:port..
-   **/
+  /** Get the ensemble server addresses. The format is: host1:port, host2:port.. */
   public String getQuorumServers() {
     return quorum;
   }
@@ -250,9 +244,12 @@ public class ZooKeeperHiveHelper {
    *
    * @throws Exception
    */
-  public void addServerInstanceToZooKeeper(String znodePathPrefix, String znodeData,
-                                           ACLProvider zooKeeperAclProvider,
-                                           ZKDeRegisterWatcher watcher) throws Exception {
+  public void addServerInstanceToZooKeeper(
+      String znodePathPrefix,
+      String znodeData,
+      ACLProvider zooKeeperAclProvider,
+      ZKDeRegisterWatcher watcher)
+      throws Exception {
     // This might be the first server getting added to the ZooKeeper, so the parent node may need
     // to be created.
     zooKeeperClient = startZookeeperClient(zooKeeperAclProvider, true);
@@ -260,29 +257,45 @@ public class ZooKeeperHiveHelper {
     // Create a znode under the rootNamespace parent for the given path prefix for a server. Also
     // add a watcher to watch the znode.
     try {
-      String pathPrefix = ZOOKEEPER_PATH_SEPARATOR + rootNamespace
-                      + ZOOKEEPER_PATH_SEPARATOR + znodePathPrefix;
+      String pathPrefix =
+          ZOOKEEPER_PATH_SEPARATOR + rootNamespace + ZOOKEEPER_PATH_SEPARATOR + znodePathPrefix;
       byte[] znodeDataUTF8 = znodeData.getBytes(StandardCharsets.UTF_8);
       znode =
-              new PersistentNode(zooKeeperClient, CreateMode.EPHEMERAL_SEQUENTIAL, false, pathPrefix, znodeDataUTF8);
+          new PersistentNode(
+              zooKeeperClient, CreateMode.EPHEMERAL_SEQUENTIAL, false, pathPrefix, znodeDataUTF8);
       znode.start();
       // We'll wait for 120s for node creation
       long znodeCreationTimeout = 120;
       if (!znode.waitForInitialCreate(znodeCreationTimeout, TimeUnit.SECONDS)) {
-        throw new Exception("Max znode creation wait time: " + znodeCreationTimeout + "s exhausted");
+        throw new Exception(
+            "Max znode creation wait time: " + znodeCreationTimeout + "s exhausted");
       }
       setDeregisteredWithZooKeeper(false);
       final String znodePath = znode.getActualPath();
       if (zooKeeperClient.checkExists().usingWatcher(watcher).forPath(znodePath) == null) {
         // No node exists, throw exception
-        throw new Exception("Unable to create znode with path prefix " + znodePathPrefix +
-                " and data " + znodeData + " on ZooKeeper.");
+        throw new Exception(
+            "Unable to create znode with path prefix "
+                + znodePathPrefix
+                + " and data "
+                + znodeData
+                + " on ZooKeeper.");
       }
-      LOG.info("Created a znode (actual path " + znodePath + ") on ZooKeeper with path prefix " +
-                      znodePathPrefix + " and data " + znodeData);
+      LOG.info(
+          "Created a znode (actual path "
+              + znodePath
+              + ") on ZooKeeper with path prefix "
+              + znodePathPrefix
+              + " and data "
+              + znodeData);
     } catch (Exception e) {
-      LOG.error("Unable to create znode with path prefix " + znodePathPrefix + " and data " +
-                znodeData + " on ZooKeeper.", e);
+      LOG.error(
+          "Unable to create znode with path prefix "
+              + znodePathPrefix
+              + " and data "
+              + znodeData
+              + " on ZooKeeper.",
+          e);
       if (znode != null) {
         znode.close();
       }
@@ -290,18 +303,19 @@ public class ZooKeeperHiveHelper {
     }
   }
 
-  public CuratorFramework startZookeeperClient(ACLProvider zooKeeperAclProvider,
-                                               boolean addParentNode) throws Exception {
+  public CuratorFramework startZookeeperClient(
+      ACLProvider zooKeeperAclProvider, boolean addParentNode) throws Exception {
     CuratorFramework zkClient = getNewZookeeperClient(zooKeeperAclProvider);
     zkClient.start();
 
     // Create the parent znodes recursively; ignore if the parent already exists.
     if (addParentNode) {
       try {
-        zkClient.create()
-                .creatingParentsIfNeeded()
-                .withMode(CreateMode.PERSISTENT)
-                .forPath(ZooKeeperHiveHelper.ZOOKEEPER_PATH_SEPARATOR + rootNamespace);
+        zkClient
+            .create()
+            .creatingParentsIfNeeded()
+            .withMode(CreateMode.PERSISTENT)
+            .forPath(ZooKeeperHiveHelper.ZOOKEEPER_PATH_SEPARATOR + rootNamespace);
         LOG.info("Created the root name space: " + rootNamespace + " on ZooKeeper");
       } catch (KeeperException e) {
         if (e.code() != KeeperException.Code.NODEEXISTS) {
@@ -312,21 +326,31 @@ public class ZooKeeperHiveHelper {
     }
     return zkClient;
   }
+
   public CuratorFramework getNewZookeeperClient() {
     return getNewZookeeperClient(null, null);
   }
+
   public CuratorFramework getNewZookeeperClient(ACLProvider zooKeeperAclProvider) {
     return getNewZookeeperClient(zooKeeperAclProvider, null);
   }
 
-  public CuratorFramework getNewZookeeperClient(ACLProvider zooKeeperAclProvider, String nameSpace) {
-    LOG.info("Creating curator client with connectString: {} namespace: {} sessionTimeoutMs: {}" +
-            " connectionTimeoutMs: {} exponentialBackoff - sleepTime: {} maxRetries: {} sslEnabled: {}",
-        quorum, nameSpace,  sessionTimeout,
-        connectionTimeout, baseSleepTime, maxRetries, sslEnabled);
+  public CuratorFramework getNewZookeeperClient(
+      ACLProvider zooKeeperAclProvider, String nameSpace) {
+    LOG.info(
+        "Creating curator client with connectString: {} namespace: {} sessionTimeoutMs: {}"
+            + " connectionTimeoutMs: {} exponentialBackoff - sleepTime: {} maxRetries: {} sslEnabled: {}",
+        quorum,
+        nameSpace,
+        sessionTimeout,
+        connectionTimeout,
+        baseSleepTime,
+        maxRetries,
+        sslEnabled);
     // Create a CuratorFramework instance to be used as the ZooKeeper client.
     // Use the zooKeeperAclProvider, when specified, to create appropriate ACLs.
-    CuratorFrameworkFactory.Builder builder = CuratorFrameworkFactory.builder()
+    CuratorFrameworkFactory.Builder builder =
+        CuratorFrameworkFactory.builder()
             .connectString(quorum)
             .namespace(nameSpace)
             .zookeeperFactory(this.sslZookeeperFactory);
@@ -362,13 +386,14 @@ public class ZooKeeperHiveHelper {
     LOG.info("Server instance removed from ZooKeeper.");
   }
 
-
   public void deregisterZnode() {
     if (znode != null) {
       try {
         znode.close();
-        LOG.warn("This server instance with path " + znode.getActualPath() +
-                " is now de-registered from ZooKeeper. ");
+        LOG.warn(
+            "This server instance with path "
+                + znode.getActualPath()
+                + " is now de-registered from ZooKeeper. ");
       } catch (IOException e) {
         LOG.error("Failed to close the persistent ephemeral znode", e);
       } finally {
@@ -387,9 +412,10 @@ public class ZooKeeperHiveHelper {
   }
 
   /**
-   * This method is supposed to be called from client code connecting to one of the servers
-   * managed by the configured ZooKeeper. It starts and closes its own ZooKeeper client instead
-   * of using the class member.
+   * This method is supposed to be called from client code connecting to one of the servers managed
+   * by the configured ZooKeeper. It starts and closes its own ZooKeeper client instead of using the
+   * class member.
+   *
    * @return list of server URIs stored under the configured zookeeper namespace
    * @throws Exception
    */
@@ -399,12 +425,17 @@ public class ZooKeeperHiveHelper {
     try {
       zkClient = startZookeeperClient(null, false);
       List<String> serverNodes =
-              zkClient.getChildren().forPath(ZOOKEEPER_PATH_SEPARATOR + rootNamespace);
+          zkClient.getChildren().forPath(ZOOKEEPER_PATH_SEPARATOR + rootNamespace);
       serverUris = new ArrayList<String>(serverNodes.size());
       for (String serverNode : serverNodes) {
-        byte[] serverUriBytes = zkClient.getData()
-                .forPath(ZOOKEEPER_PATH_SEPARATOR + rootNamespace +
-                        ZOOKEEPER_PATH_SEPARATOR + serverNode);
+        byte[] serverUriBytes =
+            zkClient
+                .getData()
+                .forPath(
+                    ZOOKEEPER_PATH_SEPARATOR
+                        + rootNamespace
+                        + ZOOKEEPER_PATH_SEPARATOR
+                        + serverNode);
         serverUris.add(new String(serverUriBytes, StandardCharsets.UTF_8));
       }
       zkClient.close();

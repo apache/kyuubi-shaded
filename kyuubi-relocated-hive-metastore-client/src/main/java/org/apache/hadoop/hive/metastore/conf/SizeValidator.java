@@ -52,26 +52,33 @@ public class SizeValidator implements Validator {
     String description =
         "Expects a byte size value with unit (blank for bytes, kb, mb, gb, tb, pb)";
     if (min != null && max != null) {
-      description += ".\nThe size should be in between " + sizeString(min)
-          + (minInclusive ? " (inclusive)" : " (exclusive)") + " and " + sizeString(max)
-          + (maxInclusive ? " (inclusive)" : " (exclusive)");
+      description +=
+          ".\nThe size should be in between "
+              + sizeString(min)
+              + (minInclusive ? " (inclusive)" : " (exclusive)")
+              + " and "
+              + sizeString(max)
+              + (maxInclusive ? " (inclusive)" : " (exclusive)");
     } else if (min != null) {
-      description += ".\nThe time should be bigger than " + (minInclusive ? "or equal to " : "")
-          + sizeString(min);
+      description +=
+          ".\nThe time should be bigger than "
+              + (minInclusive ? "or equal to " : "")
+              + sizeString(min);
     } else if (max != null) {
-      description += ".\nThe size should be smaller than " + (maxInclusive ? "or equal to " : "")
-          + sizeString(max);
+      description +=
+          ".\nThe size should be smaller than "
+              + (maxInclusive ? "or equal to " : "")
+              + sizeString(max);
     }
     return description;
   }
 
   private String sizeString(long size) {
-    final String[] units = { " bytes", "Kb", "Mb", "Gb", "Tb" };
+    final String[] units = {" bytes", "Kb", "Mb", "Gb", "Tb"};
     long current = 1;
     for (int i = 0; i < units.length && current > 0; ++i) {
       long next = current << 10;
-      if ((size & (next - 1)) != 0)
-        return (long) (size / current) + units[i];
+      if ((size & (next - 1)) != 0) return (long) (size / current) + units[i];
       current = next;
     }
     return current > 0 ? ((long) (size / current) + "Pb") : (size + units[0]);
@@ -85,9 +92,8 @@ public class SizeValidator implements Validator {
   private static String[] parseNumberFollowedByUnit(String value) {
     char[] chars = value.toCharArray();
     int i = 0;
-    for (; i < chars.length && (chars[i] == '-' || Character.isDigit(chars[i])); i++) {
-    }
-    return new String[] { value.substring(0, i), value.substring(i) };
+    for (; i < chars.length && (chars[i] == '-' || Character.isDigit(chars[i])); i++) {}
+    return new String[] {value.substring(0, i), value.substring(i)};
   }
 
   private static long multiplierFor(String unit) {

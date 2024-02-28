@@ -31,6 +31,7 @@ public class StringUtils {
 
   /**
    * Return the internalized string, or null if the given string is null.
+   *
    * @param str The string to intern
    * @return The identical string cached in the string pool.
    */
@@ -43,15 +44,16 @@ public class StringUtils {
 
   /**
    * Return an interned list with identical contents as the given list.
+   *
    * @param list The list whose strings will be interned
    * @return An identical list with its strings interned.
    */
   public static List<String> intern(List<String> list) {
-    if(list == null) {
+    if (list == null) {
       return null;
     }
     List<String> newList = new ArrayList<>(list.size());
-    for(String str : list) {
+    for (String str : list) {
       newList.add(intern(str));
     }
     return newList;
@@ -59,6 +61,7 @@ public class StringUtils {
 
   /**
    * Return an interned map with identical contents as the given map.
+   *
    * @param map The map whose strings will be interned
    * @return An identical map with its strings interned.
    */
@@ -87,6 +90,7 @@ public class StringUtils {
 
   /**
    * Normalize all identifiers to make equality comparisons easier.
+   *
    * @param identifier identifier
    * @return normalized version, with white space removed and all lower case.
    */
@@ -96,6 +100,7 @@ public class StringUtils {
 
   /**
    * Make a string representation of the exception.
+   *
    * @param e The exception to stringify
    * @return A string with exception name and call stack.
    * @deprecated
@@ -110,8 +115,8 @@ public class StringUtils {
   }
 
   /**
-   * Given an array of bytes it will convert the bytes to a hex string
-   * representation of the bytes.
+   * Given an array of bytes it will convert the bytes to a hex string representation of the bytes.
+   *
    * @param bytes Input bytes
    * @param start start index, inclusively
    * @param end end index, exclusively
@@ -123,6 +128,7 @@ public class StringUtils {
 
   /**
    * Checks if the input string/char sequence is empty
+   *
    * @param cs Input char sequence
    * @return true if empty and false if not
    */

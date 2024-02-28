@@ -17,13 +17,12 @@
  */
 package org.apache.hadoop.hive.metastore.conf;
 
-/**
- * validate value for a ConfVar, return non-null string for fail message
- */
+/** validate value for a ConfVar, return non-null string for fail message */
 public interface Validator {
 
   /**
    * Validate if the given value is acceptable.
+   *
    * @param value value to test
    * @throws IllegalArgumentException if the value is invalid
    */
@@ -34,10 +33,10 @@ public interface Validator {
       @Override
       protected boolean inRange(String value, Object lower, Object upper) {
         int ivalue = Integer.parseInt(value);
-        if (lower != null && ivalue < (Integer)lower) {
+        if (lower != null && ivalue < (Integer) lower) {
           return false;
         }
-        if (upper != null && ivalue > (Integer)upper) {
+        if (upper != null && ivalue > (Integer) upper) {
           return false;
         }
         return true;
@@ -47,10 +46,10 @@ public interface Validator {
       @Override
       protected boolean inRange(String value, Object lower, Object upper) {
         long lvalue = Long.parseLong(value);
-        if (lower != null && lvalue < (Long)lower) {
+        if (lower != null && lvalue < (Long) lower) {
           return false;
         }
-        if (upper != null && lvalue > (Long)upper) {
+        if (upper != null && lvalue > (Long) upper) {
           return false;
         }
         return true;
@@ -60,10 +59,10 @@ public interface Validator {
       @Override
       protected boolean inRange(String value, Object lower, Object upper) {
         float fvalue = Float.parseFloat(value);
-        if (lower != null && fvalue < (Float)lower) {
+        if (lower != null && fvalue < (Float) lower) {
           return false;
         }
-        if (upper != null && fvalue > (Float)upper) {
+        if (upper != null && fvalue > (Float) upper) {
           return false;
         }
         return true;
@@ -83,5 +82,4 @@ public interface Validator {
 
     protected abstract boolean inRange(String value, Object lower, Object upper);
   }
-
 }

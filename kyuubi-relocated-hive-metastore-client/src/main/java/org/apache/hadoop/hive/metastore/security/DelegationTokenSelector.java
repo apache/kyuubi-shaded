@@ -20,12 +20,9 @@ package org.apache.hadoop.hive.metastore.security;
 
 import org.apache.hadoop.security.token.delegation.AbstractDelegationTokenSelector;
 
-/**
- * A delegation token that is specialized for Hive
- */
-
+/** A delegation token that is specialized for Hive */
 public class DelegationTokenSelector
-    extends AbstractDelegationTokenSelector<DelegationTokenIdentifier>{
+    extends AbstractDelegationTokenSelector<DelegationTokenIdentifier> {
 
   public DelegationTokenSelector() {
     super(DelegationTokenIdentifier.HIVE_DELEGATION_KIND);

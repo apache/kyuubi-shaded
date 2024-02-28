@@ -20,54 +20,53 @@ package org.apache.hadoop.hive.metastore.security;
 
 import java.io.IOException;
 import java.security.PrivilegedExceptionAction;
-
 import org.apache.hadoop.security.UserGroupInformation;
 import org.apache.thrift.transport.TTransport;
 import org.apache.thrift.transport.TTransportException;
 
 /**
-  * The Thrift SASL transports call Sasl.createSaslServer and Sasl.createSaslClient
-  * inside open(). So, we need to assume the correct UGI when the transport is opened
-  * so that the SASL mechanisms have access to the right principal. This transport
-  * wraps the Sasl transports to set up the right UGI context for open().
-  *
-  * This is used on the client side, where the API explicitly opens a transport to
-  * the server.
-  */
- public class TUGIAssumingTransport extends TFilterTransport {
-   protected UserGroupInformation ugi;
+ * The Thrift SASL transports call Sasl.createSaslServer and Sasl.createSaslClient inside open().
+ * So, we need to assume the correct UGI when the transport is opened so that the SASL mechanisms
+ * have access to the right principal. This transport wraps the Sasl transports to set up the right
+ * UGI context for open().
+ *
+ * <p>This is used on the client side, where the API explicitly opens a transport to the server.
+ */
+public class TUGIAssumingTransport extends TFilterTransport {
+  protected UserGroupInformation ugi;
 
-   public TUGIAssumingTransport(TTransport wrapped, UserGroupInformation ugi) {
-     super(wrapped);
-     this.ugi = ugi;
-   }
+  public TUGIAssumingTransport(TTransport wrapped, UserGroupInformation ugi) {
+    super(wrapped);
+    this.ugi = ugi;
+  }
 
-   @Override
-   public void open() throws TTransportException {
-     try {
-       ugi.doAs(new PrivilegedExceptionAction<Void>() {
-         public Void run() {
-           try {
-             wrapped.open();
-           } catch (TTransportException tte) {
-             // Wrap the transport exception in an RTE, since UGI.doAs() then goes
-             // and unwraps this for us out of the doAs block. We then unwrap one
-             // more time in our catch clause to get back the TTE. (ugh)
-             throw new RuntimeException(tte);
-           }
-           return null;
-         }
-       });
-     } catch (IOException ioe) {
-       throw new RuntimeException("Received an ioe we never threw!", ioe);
-     } catch (InterruptedException ie) {
-       throw new RuntimeException("Received an ie we never threw!", ie);
-     } catch (RuntimeException rte) {
-       if (rte.getCause() instanceof TTransportException) {
-         throw (TTransportException)rte.getCause();
-       } else {
-         throw rte;
-       }
-     }
-   }
- }
+  @Override
+  public void open() throws TTransportException {
+    try {
+      ugi.doAs(
+          new PrivilegedExceptionAction<Void>() {
+            public Void run() {
+              try {
+                wrapped.open();
+              } catch (TTransportException tte) {
+                // Wrap the transport exception in an RTE, since UGI.doAs() then goes
+                // and unwraps this for us out of the doAs block. We then unwrap one
+                // more time in our catch clause to get back the TTE. (ugh)
+                throw new RuntimeException(tte);
+              }
+              return null;
+            }
+          });
+    } catch (IOException ioe) {
+      throw new RuntimeException("Received an ioe we never threw!", ioe);
+    } catch (InterruptedException ie) {
+      throw new RuntimeException("Received an ie we never threw!", ie);
+    } catch (RuntimeException rte) {
+      if (rte.getCause() instanceof TTransportException) {
+        throw (TTransportException) rte.getCause();
+      } else {
+        throw rte;
+      }
+    }
+  }
+}

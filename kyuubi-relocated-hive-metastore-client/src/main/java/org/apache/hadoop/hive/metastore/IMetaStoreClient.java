@@ -18,16 +18,13 @@
 
 package org.apache.hadoop.hive.metastore;
 
-
 import org.apache.hadoop.classification.InterfaceAudience;
 import org.apache.hadoop.classification.InterfaceStability;
 import org.apache.hadoop.hive.metastore.annotation.NoReconnect;
 import org.apache.hadoop.hive.metastore.api.MetaException;
 import org.apache.thrift.TException;
 
-/**
- * Wrapper around hive metastore thrift api
- */
+/** Wrapper around hive metastore thrift api */
 @InterfaceAudience.Public
 @InterfaceStability.Evolving
 public interface IMetaStoreClient extends AutoCloseable {
@@ -39,22 +36,18 @@ public interface IMetaStoreClient extends AutoCloseable {
    */
   boolean isLocalMetaStore();
 
-  /**
-   * Tries to reconnect this MetaStoreClient to the MetaStore.
-   */
+  /** Tries to reconnect this MetaStoreClient to the MetaStore. */
   void reconnect() throws MetaException;
 
-  /**
-   * close connection to meta store
-   */
+  /** close connection to meta store */
   @NoReconnect
   void close();
 
   /**
-   * This is expected to be a no-op when in local mode,
-   * which means that the implementation will return null.
+   * This is expected to be a no-op when in local mode, which means that the implementation will
+   * return null.
    *
-   * @param owner                        the intended owner for the token
+   * @param owner the intended owner for the token
    * @param renewerKerberosPrincipalName
    * @return the string of the token
    * @throws MetaException

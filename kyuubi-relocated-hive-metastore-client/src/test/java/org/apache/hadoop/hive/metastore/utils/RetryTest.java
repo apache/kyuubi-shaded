@@ -21,24 +21,24 @@ package org.apache.hadoop.hive.metastore.utils;
 import org.junit.Assert;
 import org.junit.Test;
 
-/**
- * Tests for retriable interface.
- */
+/** Tests for retriable interface. */
 public class RetryTest {
   @Test
   public void testRetrySuccess() {
-    Retry<Void> retriable = new Retry<Void>(NullPointerException.class) {
-      private int count = 0;
-      @Override
-      public Void execute() {
-        if (count < 1) {
-          count++;
-          throw new NullPointerException();
-        } else {
-          return null;
-        }
-      }
-    };
+    Retry<Void> retriable =
+        new Retry<Void>(NullPointerException.class) {
+          private int count = 0;
+
+          @Override
+          public Void execute() {
+            if (count < 1) {
+              count++;
+              throw new NullPointerException();
+            } else {
+              return null;
+            }
+          }
+        };
     try {
       retriable.run();
     } catch (Exception e) {
@@ -48,12 +48,13 @@ public class RetryTest {
 
   @Test
   public void testRetryFailure() {
-    Retry<Void> retriable = new Retry<Void>(NullPointerException.class) {
-      @Override
-      public Void execute() {
-        throw new RuntimeException();
-      }
-    };
+    Retry<Void> retriable =
+        new Retry<Void>(NullPointerException.class) {
+          @Override
+          public Void execute() {
+            throw new RuntimeException();
+          }
+        };
     try {
       retriable.run();
       Assert.fail();
@@ -64,12 +65,13 @@ public class RetryTest {
 
   @Test
   public void testRetryFailureWithDelay() {
-    Retry<Void> retriable = new Retry<Void>(NullPointerException.class) {
-      @Override
-      public Void execute() {
-        throw new RuntimeException();
-      }
-    };
+    Retry<Void> retriable =
+        new Retry<Void>(NullPointerException.class) {
+          @Override
+          public Void execute() {
+            throw new RuntimeException();
+          }
+        };
     try {
       retriable.runWithDelay();
       Assert.fail();
@@ -80,14 +82,16 @@ public class RetryTest {
 
   @Test
   public void testRetrySuccessWithDelay() {
-    Retry<Void> retriable = new Retry<Void>(NullPointerException.class) {
-      private long startTime = System.currentTimeMillis();
-      @Override
-      public Void execute() {
-        executeWithDelay(startTime);
-        return null;
-      }
-    };
+    Retry<Void> retriable =
+        new Retry<Void>(NullPointerException.class) {
+          private long startTime = System.currentTimeMillis();
+
+          @Override
+          public Void execute() {
+            executeWithDelay(startTime);
+            return null;
+          }
+        };
     try {
       retriable.runWithDelay();
     } catch (Exception e) {
@@ -104,12 +108,13 @@ public class RetryTest {
 
   @Test
   public void testRetryFailureWithDelayMoreThanTimeout() {
-    Retry<Void> retriable = new Retry<Void>(NullPointerException.class) {
-      @Override
-      public Void execute() {
-        throw new NullPointerException();
-      }
-    };
+    Retry<Void> retriable =
+        new Retry<Void>(NullPointerException.class) {
+          @Override
+          public Void execute() {
+            throw new NullPointerException();
+          }
+        };
     long startTime = System.currentTimeMillis();
     try {
       retriable.runWithDelay();

@@ -16,7 +16,5 @@
  * limitations under the License.
  */
 
-/**
- * Package consisting the utility methods for metastore.
- */
+/** Package consisting the utility methods for metastore. */
 package org.apache.hadoop.hive.metastore.utils;

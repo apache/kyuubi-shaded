@@ -32,8 +32,8 @@ public class TimeValidator implements Validator {
     this(unit, null, false, null, false);
   }
 
-  public TimeValidator(TimeUnit unit, Long min, boolean minInclusive, Long max,
-                       boolean maxInclusive) {
+  public TimeValidator(
+      TimeUnit unit, Long min, boolean minInclusive, Long max, boolean maxInclusive) {
     this.unit = unit;
     this.min = min;
     this.minInclusive = minInclusive;
@@ -48,15 +48,21 @@ public class TimeValidator implements Validator {
     long time = MetastoreConf.convertTimeStr(value, defaultUnit, defaultUnit);
     if (min != null) {
       if (minInclusive ? time < min : time <= min) {
-        throw new IllegalArgumentException(value + " is smaller than minimum " + min +
-            MetastoreConf.timeAbbreviationFor(defaultUnit));
+        throw new IllegalArgumentException(
+            value
+                + " is smaller than minimum "
+                + min
+                + MetastoreConf.timeAbbreviationFor(defaultUnit));
       }
     }
 
     if (max != null) {
       if (maxInclusive ? time > max : time >= max) {
-        throw new IllegalArgumentException(value + " is larger than maximum " + max +
-            MetastoreConf.timeAbbreviationFor(defaultUnit));
+        throw new IllegalArgumentException(
+            value
+                + " is larger than maximum "
+                + max
+                + MetastoreConf.timeAbbreviationFor(defaultUnit));
       }
     }
   }

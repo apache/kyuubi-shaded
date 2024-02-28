@@ -28,8 +28,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Factory to create Zookeeper clients with the zookeeper.client.secure enabled,
- * allowing SSL communication with the Zookeeper server.
+ * Factory to create Zookeeper clients with the zookeeper.client.secure enabled, allowing SSL
+ * communication with the Zookeeper server.
  */
 public class SSLZookeeperFactory implements ZookeeperFactory {
 
@@ -41,8 +41,12 @@ public class SSLZookeeperFactory implements ZookeeperFactory {
   private String trustStoreLocation;
   private String trustStorePassword;
 
-  public SSLZookeeperFactory(boolean sslEnabled, String keyStoreLocation, String keyStorePassword,
-      String trustStoreLocation, String trustStorePassword) {
+  public SSLZookeeperFactory(
+      boolean sslEnabled,
+      String keyStoreLocation,
+      String keyStorePassword,
+      String trustStoreLocation,
+      String trustStorePassword) {
 
     this.sslEnabled = sslEnabled;
     this.keyStoreLocation = keyStoreLocation;
@@ -60,14 +64,16 @@ public class SSLZookeeperFactory implements ZookeeperFactory {
   }
 
   @Override
-  public ZooKeeper newZooKeeper(String connectString, int sessionTimeout, Watcher watcher,
-      boolean canBeReadOnly) throws Exception {
+  public ZooKeeper newZooKeeper(
+      String connectString, int sessionTimeout, Watcher watcher, boolean canBeReadOnly)
+      throws Exception {
     if (!this.sslEnabled) {
       return new ZooKeeper(connectString, sessionTimeout, watcher, canBeReadOnly);
     }
     ZKClientConfig clientConfig = new ZKClientConfig();
     clientConfig.setProperty(ZKClientConfig.SECURE_CLIENT, "true");
-    clientConfig.setProperty(ZKClientConfig.ZOOKEEPER_CLIENT_CNXN_SOCKET, "org.apache.zookeeper.ClientCnxnSocketNetty");
+    clientConfig.setProperty(
+        ZKClientConfig.ZOOKEEPER_CLIENT_CNXN_SOCKET, "org.apache.zookeeper.ClientCnxnSocketNetty");
     ClientX509Util x509Util = new ClientX509Util();
     clientConfig.setProperty(x509Util.getSslKeystoreLocationProperty(), this.keyStoreLocation);
     clientConfig.setProperty(x509Util.getSslKeystorePasswdProperty(), this.keyStorePassword);

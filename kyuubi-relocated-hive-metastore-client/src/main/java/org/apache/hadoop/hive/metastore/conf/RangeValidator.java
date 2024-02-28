@@ -31,8 +31,8 @@ public class RangeValidator implements Validator {
   @Override
   public void validate(String value) {
     if (value == null || !type.inRange(value.trim(), lower, upper)) {
-      throw new IllegalArgumentException("Invalid value  " + value +
-          ", which should be in between " + lower + " and " + upper);
+      throw new IllegalArgumentException(
+          "Invalid value  " + value + ", which should be in between " + lower + " and " + upper);
     }
   }
 }

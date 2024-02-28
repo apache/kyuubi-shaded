@@ -47,5 +47,4 @@ public class StringSetValidator implements Validator {
       throw new IllegalArgumentException("Invalid value.. expects one of " + expected);
     }
   }
-
 }

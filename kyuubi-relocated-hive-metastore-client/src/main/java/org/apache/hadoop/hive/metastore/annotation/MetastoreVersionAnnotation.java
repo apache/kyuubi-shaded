@@ -18,18 +18,13 @@
 
 package org.apache.hadoop.hive.metastore.annotation;
 
-import org.apache.hadoop.classification.InterfaceStability;
-
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import org.apache.hadoop.classification.InterfaceStability;
 
-
-/**
- * HiveVersionAnnotation.
- *
- */
+/** HiveVersionAnnotation. */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.PACKAGE)
 @InterfaceStability.Unstable
@@ -37,49 +32,49 @@ public @interface MetastoreVersionAnnotation {
 
   /**
    * Get the Hive version
+   *
    * @return the version string "0.6.3-dev"
    */
   String version();
 
   /**
    * Get the Hive short version containing major/minor/change version numbers
+   *
    * @return the short version string "0.6.3"
    */
   String shortVersion();
 
-  /**
-   * Get the username that compiled Hive.
-   */
+  /** Get the username that compiled Hive. */
   String user();
 
   /**
    * Get the date when Hive was compiled.
+   *
    * @return the date in unix 'date' format
    */
   String date();
 
-  /**
-   * Get the url for the git repository.
-   */
+  /** Get the url for the git repository. */
   String url();
 
   /**
    * Get the git revision.
+   *
    * @return the revision number as a string (eg. "451451")
    */
   String revision();
 
   /**
    * Get the branch from which this was compiled.
+   *
    * @return The branch name, e.g. "trunk" or "branches/branch-0.20"
    */
   String branch();
 
   /**
-   * Get a checksum of the source files from which
-   * Hive was compiled.
+   * Get a checksum of the source files from which Hive was compiled.
+   *
    * @return a string that uniquely identifies the source
-   **/
+   */
   String srcChecksum();
-
 }

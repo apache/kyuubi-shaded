@@ -30,3 +30,4 @@
 **/dependency-reduced-pom.xml
 NOTICE*
 build/apache-maven-*/**
+**/src/gen/**

@@ -23,93 +23,93 @@ import org.apache.thrift.transport.TTransport;
 import org.apache.thrift.transport.TTransportException;
 
 /**
-  * Transport that simply wraps another transport.
-  * This is the equivalent of FilterInputStream for Thrift transports.
-  */
- public class TFilterTransport extends TTransport {
-   protected final TTransport wrapped;
+ * Transport that simply wraps another transport. This is the equivalent of FilterInputStream for
+ * Thrift transports.
+ */
+public class TFilterTransport extends TTransport {
+  protected final TTransport wrapped;
 
-   public TFilterTransport(TTransport wrapped) {
-     this.wrapped = wrapped;
-   }
+  public TFilterTransport(TTransport wrapped) {
+    this.wrapped = wrapped;
+  }
 
-   @Override
-   public void open() throws TTransportException {
-     wrapped.open();
-   }
+  @Override
+  public void open() throws TTransportException {
+    wrapped.open();
+  }
 
-   @Override
-   public boolean isOpen() {
-     return wrapped.isOpen();
-   }
+  @Override
+  public boolean isOpen() {
+    return wrapped.isOpen();
+  }
 
-   @Override
-   public boolean peek() {
-     return wrapped.peek();
-   }
+  @Override
+  public boolean peek() {
+    return wrapped.peek();
+  }
 
-   @Override
-   public void close() {
-     wrapped.close();
-   }
+  @Override
+  public void close() {
+    wrapped.close();
+  }
 
-   @Override
-   public int read(byte[] buf, int off, int len) throws TTransportException {
-     return wrapped.read(buf, off, len);
-   }
+  @Override
+  public int read(byte[] buf, int off, int len) throws TTransportException {
+    return wrapped.read(buf, off, len);
+  }
 
-   @Override
-   public int readAll(byte[] buf, int off, int len) throws TTransportException {
-     return wrapped.readAll(buf, off, len);
-   }
+  @Override
+  public int readAll(byte[] buf, int off, int len) throws TTransportException {
+    return wrapped.readAll(buf, off, len);
+  }
 
-   @Override
-   public void write(byte[] buf) throws TTransportException {
-     wrapped.write(buf);
-   }
+  @Override
+  public void write(byte[] buf) throws TTransportException {
+    wrapped.write(buf);
+  }
 
-   @Override
-   public void write(byte[] buf, int off, int len) throws TTransportException {
-     wrapped.write(buf, off, len);
-   }
+  @Override
+  public void write(byte[] buf, int off, int len) throws TTransportException {
+    wrapped.write(buf, off, len);
+  }
 
-   @Override
-   public void flush() throws TTransportException {
-     wrapped.flush();
-   }
+  @Override
+  public void flush() throws TTransportException {
+    wrapped.flush();
+  }
 
-   @Override
-   public byte[] getBuffer() {
-     return wrapped.getBuffer();
-   }
+  @Override
+  public byte[] getBuffer() {
+    return wrapped.getBuffer();
+  }
 
-   @Override
-   public int getBufferPosition() {
-     return wrapped.getBufferPosition();
-   }
+  @Override
+  public int getBufferPosition() {
+    return wrapped.getBufferPosition();
+  }
 
-   @Override
-   public int getBytesRemainingInBuffer() {
-     return wrapped.getBytesRemainingInBuffer();
-   }
+  @Override
+  public int getBytesRemainingInBuffer() {
+    return wrapped.getBytesRemainingInBuffer();
+  }
 
-   @Override
-   public void consumeBuffer(int len) {
-     wrapped.consumeBuffer(len);
-   }
+  @Override
+  public void consumeBuffer(int len) {
+    wrapped.consumeBuffer(len);
+  }
 
-   @Override
-   public TConfiguration getConfiguration() {
-     return wrapped.getConfiguration();
-   }
+  @Override
+  public TConfiguration getConfiguration() {
+    return wrapped.getConfiguration();
+  }
 
-   @Override
-   public void updateKnownMessageSize(long l) throws TTransportException {
-     wrapped.updateKnownMessageSize(l);
-   }
+  @Override
+  public void updateKnownMessageSize(long l) throws TTransportException {
+    wrapped.updateKnownMessageSize(l);
+  }
 
-   @Override
-   public void checkReadBytesAvailable(long l) throws TTransportException {
-     wrapped.checkReadBytesAvailable(l);
-   }
+  @Override
+  public void checkReadBytesAvailable(long l) throws TTransportException {
+    wrapped.checkReadBytesAvailable(l);
+  }
 }

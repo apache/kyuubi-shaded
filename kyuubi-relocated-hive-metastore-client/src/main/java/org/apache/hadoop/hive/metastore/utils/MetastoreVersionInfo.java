@@ -42,6 +42,7 @@ public class MetastoreVersionInfo {
 
   /**
    * Get the meta-data for the Hive package.
+   *
    * @return
    */
   static Package getPackage() {
@@ -50,6 +51,7 @@ public class MetastoreVersionInfo {
 
   /**
    * Get the Hive version.
+   *
    * @return the Hive version string, eg. "0.6.3-dev"
    */
   public static String getVersion() {
@@ -58,6 +60,7 @@ public class MetastoreVersionInfo {
 
   /**
    * Get the Hive short version, with major/minor/change version numbers.
+   *
    * @return short version string, eg. "0.6.3"
    */
   public static String getShortVersion() {
@@ -66,6 +69,7 @@ public class MetastoreVersionInfo {
 
   /**
    * Get the git revision number for the root directory
+   *
    * @return the revision number, eg. "451451"
    */
   public static String getRevision() {
@@ -74,6 +78,7 @@ public class MetastoreVersionInfo {
 
   /**
    * Get the branch on which this originated.
+   *
    * @return The branch name, e.g. "trunk" or "branches/branch-0.20"
    */
   public static String getBranch() {
@@ -82,6 +87,7 @@ public class MetastoreVersionInfo {
 
   /**
    * The date that Hive was compiled.
+   *
    * @return the compilation date in unix date format
    */
   public static String getDate() {
@@ -90,44 +96,39 @@ public class MetastoreVersionInfo {
 
   /**
    * The user that compiled Hive.
+   *
    * @return the username of the user
    */
   public static String getUser() {
     return version != null ? version.user() : "Unknown";
   }
 
-  /**
-   * Get the git URL for the root Hive directory.
-   */
+  /** Get the git URL for the root Hive directory. */
   public static String getUrl() {
     return version != null ? version.url() : "Unknown";
   }
 
-  /**
-   * Get the checksum of the source files from which Hive was
-   * built.
-   **/
+  /** Get the checksum of the source files from which Hive was built. */
   public static String getSrcChecksum() {
     return version != null ? version.srcChecksum() : "Unknown";
   }
 
-  /**
-   * Returns the buildVersion which includes version,
-   * revision, user and date.
-   */
-  public static String getBuildVersion(){
-    return MetastoreVersionInfo.getVersion() +
-    " from " + MetastoreVersionInfo.getRevision() +
-    " by " + MetastoreVersionInfo.getUser() +
-    " source checksum " + MetastoreVersionInfo.getSrcChecksum();
+  /** Returns the buildVersion which includes version, revision, user and date. */
+  public static String getBuildVersion() {
+    return MetastoreVersionInfo.getVersion()
+        + " from "
+        + MetastoreVersionInfo.getRevision()
+        + " by "
+        + MetastoreVersionInfo.getUser()
+        + " source checksum "
+        + MetastoreVersionInfo.getSrcChecksum();
   }
 
   public static void main(String[] args) {
-    LOG.debug("version: "+ version);
+    LOG.debug("version: " + version);
     System.out.println("Hive " + getVersion());
     System.out.println("Git " + getUrl() + " -r " + getRevision());
     System.out.println("Compiled by " + getUser() + " on " + getDate());
     System.out.println("From source with checksum " + getSrcChecksum());
   }
-
 }

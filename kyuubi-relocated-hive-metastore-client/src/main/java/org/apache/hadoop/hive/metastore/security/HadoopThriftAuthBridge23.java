@@ -20,16 +20,15 @@ package org.apache.hadoop.hive.metastore.security;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Map;
-
 import org.apache.hadoop.conf.Configurable;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.security.SaslRpcServer;
 
 /**
- * Functions that bridge Thrift's SASL transports to Hadoop's SASL callback
- * handlers and authentication classes.
+ * Functions that bridge Thrift's SASL transports to Hadoop's SASL callback handlers and
+ * authentication classes.
  *
- * This is a 0.23/2.x specific implementation
+ * <p>This is a 0.23/2.x specific implementation
  */
 public class HadoopThriftAuthBridge23 extends HadoopThriftAuthBridge {
 
@@ -37,6 +36,7 @@ public class HadoopThriftAuthBridge23 extends HadoopThriftAuthBridge {
   private static Class<?> SASL_PROPERTIES_RESOLVER_CLASS;
   private static Method RES_GET_INSTANCE_METHOD;
   private static Method GET_DEFAULT_PROP_METHOD;
+
   static {
     SASL_PROPERTIES_RESOLVER_CLASS = null;
     SASL_PROPS_FIELD = null;
@@ -51,8 +51,8 @@ public class HadoopThriftAuthBridge23 extends HadoopThriftAuthBridge {
       // found the class, so this would be hadoop version 2.4 or newer (See
       // HADOOP-10221, HADOOP-10451)
       try {
-        RES_GET_INSTANCE_METHOD = SASL_PROPERTIES_RESOLVER_CLASS.getMethod("getInstance",
-                Configuration.class);
+        RES_GET_INSTANCE_METHOD =
+            SASL_PROPERTIES_RESOLVER_CLASS.getMethod("getInstance", Configuration.class);
         GET_DEFAULT_PROP_METHOD = SASL_PROPERTIES_RESOLVER_CLASS.getMethod("getDefaultProperties");
       } catch (RuntimeException e) {
         throw e;
@@ -68,8 +68,8 @@ public class HadoopThriftAuthBridge23 extends HadoopThriftAuthBridge {
         SASL_PROPS_FIELD = SaslRpcServer.class.getField("SASL_PROPS");
       } catch (NoSuchFieldException e) {
         // Older version of hadoop should have had this field
-        throw new IllegalStateException("Error finding hadoop SASL_PROPS field in "
-            + SaslRpcServer.class.getSimpleName(), e);
+        throw new IllegalStateException(
+            "Error finding hadoop SASL_PROPS field in " + SaslRpcServer.class.getSimpleName(), e);
       }
     }
   }
@@ -77,13 +77,10 @@ public class HadoopThriftAuthBridge23 extends HadoopThriftAuthBridge {
   // TODO RIVEN switch this back to package level when we can move TestHadoopAuthBridge23 into
   // riven.
   // Package permission so that HadoopThriftAuthBridge can construct it but others cannot.
-  protected HadoopThriftAuthBridge23() {
-
-  }
+  protected HadoopThriftAuthBridge23() {}
 
   /**
-   * Read and return Hadoop SASL configuration which can be configured using
-   * "hadoop.rpc.protection"
+   * Read and return Hadoop SASL configuration which can be configured using "hadoop.rpc.protection"
    *
    * @param conf
    * @return Hadoop SASL configuration
@@ -104,13 +101,12 @@ public class HadoopThriftAuthBridge23 extends HadoopThriftAuthBridge {
     }
     // 2.5 and later way of finding sasl property
     try {
-      Configurable saslPropertiesResolver = (Configurable) RES_GET_INSTANCE_METHOD.invoke(null,
-          conf);
+      Configurable saslPropertiesResolver =
+          (Configurable) RES_GET_INSTANCE_METHOD.invoke(null, conf);
       saslPropertiesResolver.setConf(conf);
       return (Map<String, String>) GET_DEFAULT_PROP_METHOD.invoke(saslPropertiesResolver);
     } catch (Exception e) {
       throw new IllegalStateException("Error finding hadoop SASL properties", e);
     }
   }
-
 }

@@ -18,9 +18,7 @@
 
 package org.apache.hadoop.hive.metastore.utils;
 
-/**
- * Class to implement any retry logic in case of exceptions.
- */
+/** Class to implement any retry logic in case of exceptions. */
 public abstract class Retry<T> {
 
   public static final int MAX_RETRIES = 4;
@@ -37,8 +35,8 @@ public abstract class Retry<T> {
   public T run() throws Exception {
     try {
       return execute();
-    } catch(Exception e) {
-      if (e.getClass().equals(retryExceptionType)){
+    } catch (Exception e) {
+      if (e.getClass().equals(retryExceptionType)) {
         tries++;
         if (MAX_RETRIES == tries) {
           throw e;
@@ -54,8 +52,8 @@ public abstract class Retry<T> {
   public T runWithDelay() throws Exception {
     try {
       return execute();
-    } catch(Exception e) {
-      if (e.getClass().equals(retryExceptionType)){
+    } catch (Exception e) {
+      if (e.getClass().equals(retryExceptionType)) {
         tries++;
         if (MAX_RETRIES == tries) {
           throw e;

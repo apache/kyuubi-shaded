@@ -21,9 +21,7 @@ package org.apache.hadoop.hive.common;
 import org.apache.zookeeper.WatchedEvent;
 import org.apache.zookeeper.Watcher;
 
-/**
- * The watcher class which sets the de-register flag when the given znode is deleted.
- */
+/** The watcher class which sets the de-register flag when the given znode is deleted. */
 public class ZKDeRegisterWatcher implements Watcher {
   private ZooKeeperHiveHelper zooKeeperHiveHelper;
 

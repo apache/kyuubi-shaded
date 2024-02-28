@@ -18,20 +18,18 @@
 
 package org.apache.hadoop.hive.metastore.hooks;
 
-import org.apache.hadoop.hive.metastore.HiveMetaException;
-
 import java.net.URI;
 import java.util.List;
+import org.apache.hadoop.hive.metastore.HiveMetaException;
 
-/**
- * Allows different metastore uris to be resolved.
- */
+/** Allows different metastore uris to be resolved. */
 public interface URIResolverHook {
 
-    /**
-     * Resolve to a proper thrift uri, or a list of uris, given uri of another scheme.
-     * @param uri
-     * @return
-     */
-    public List<URI> resolveURI(URI uri) throws HiveMetaException;
+  /**
+   * Resolve to a proper thrift uri, or a list of uris, given uri of another scheme.
+   *
+   * @param uri
+   * @return
+   */
+  public List<URI> resolveURI(URI uri) throws HiveMetaException;
 }

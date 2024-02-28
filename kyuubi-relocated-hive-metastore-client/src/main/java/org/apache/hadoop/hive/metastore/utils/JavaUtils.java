@@ -17,14 +17,13 @@
  */
 package org.apache.hadoop.hive.metastore.utils;
 
+import java.lang.reflect.Constructor;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import org.apache.commons.lang3.ClassUtils;
 import org.apache.hadoop.hive.metastore.api.MetaException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.lang.reflect.Constructor;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 
 public class JavaUtils {
   public static final Logger LOG = LoggerFactory.getLogger(JavaUtils.class);
@@ -32,10 +31,11 @@ public class JavaUtils {
   /**
    * Standard way of getting classloader in Hive code (outside of Hadoop).
    *
-   * Uses the context loader to get access to classpaths to auxiliary and jars
-   * added with 'add jar' command. Falls back to current classloader.
+   * <p>Uses the context loader to get access to classpaths to auxiliary and jars added with 'add
+   * jar' command. Falls back to current classloader.
    *
-   * In Hadoop-related code, we use Configuration.getClassLoader().
+   * <p>In Hadoop-related code, we use Configuration.getClassLoader().
+   *
    * @return the class loader
    */
   public static ClassLoader getClassLoader() {
@@ -58,14 +58,12 @@ public class JavaUtils {
 
   /**
    * Create an object of the given class.
+   *
    * @param theClass
-   * @param parameterTypes
-   *          an array of parameterTypes for the constructor
-   * @param initargs
-   *          the list of arguments for the constructor
+   * @param parameterTypes an array of parameterTypes for the constructor
+   * @param initargs the list of arguments for the constructor
    */
-  public static <T> T newInstance(Class<T> theClass, Class<?>[] parameterTypes,
-                                  Object[] initargs) {
+  public static <T> T newInstance(Class<T> theClass, Class<?>[] parameterTypes, Object[] initargs) {
     // Perform some sanity checks on the arguments.
     if (parameterTypes.length != initargs.length) {
       throw new IllegalArgumentException(
@@ -75,8 +73,8 @@ public class JavaUtils {
       // initargs are boxed to Object, so we need to wrapper primitive types here.
       Class<?> clazz = ClassUtils.primitiveToWrapper(parameterTypes[i]);
       if (initargs[i] != null && !(clazz.isInstance(initargs[i]))) {
-        throw new IllegalArgumentException("Object : " + initargs[i]
-            + " is not an instance of " + clazz);
+        throw new IllegalArgumentException(
+            "Object : " + initargs[i] + " is not an instance of " + clazz);
       }
     }
 
@@ -89,23 +87,7 @@ public class JavaUtils {
     }
   }
 
-  /**
-   * Create an object of the given class using a no-args constructor
-   * @param theClass class to return new object of
-   * @param <T> the type of the class to be returned
-   * @return an object of the requested type
-   */
-  public static <T> T newInstance(Class<T> theClass) {
-    try {
-      return theClass.newInstance();
-    } catch (InstantiationException|IllegalAccessException e) {
-      throw new RuntimeException("Unable to instantiate " + theClass.getName(), e);
-    }
-  }
-
-  /**
-   * @return name of current host
-   */
+  /** @return name of current host */
   public static String hostname() {
     try {
       return InetAddress.getLocalHost().getHostName();
@@ -113,20 +95,5 @@ public class JavaUtils {
       LOG.error("Unable to resolve my host name " + e.getMessage());
       throw new RuntimeException(e);
     }
-  }
-
-  /**
-   * Utility method for ACID to normalize logging info.  Matches
-   * org.apache.hadoop.hive.metastore.api.LockRequest#toString
-   */
-  public static String lockIdToString(long extLockId) {
-    return "lockid:" + extLockId;
-  }
-  /**
-   * Utility method for ACID to normalize logging info.  Matches
-   * org.apache.hadoop.hive.metastore.api.LockResponse#toString
-   */
-  public static String txnIdToString(long txnId) {
-    return "txnid:" + txnId;
   }
 }
