@@ -1,6 +1,4 @@
-#!/usr/local/bin/thrift -java
-
-/**
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -18,28 +16,23 @@
  * limitations under the License.
  */
 
-#
-# Thrift Service that the MetaStore is built on
-#
+package org.apache.kyuubi.hive.common;
 
-include "fb303.thrift"
+import org.apache.zookeeper.WatchedEvent;
+import org.apache.zookeeper.Watcher;
 
-namespace java org.apache.kyuubi.hive.metastore.api
+/** The watcher class which sets the de-register flag when the given znode is deleted. */
+public class ZKDeRegisterWatcher implements Watcher {
+  private ZooKeeperHiveHelper zooKeeperHiveHelper;
 
-// Exceptions.
+  public ZKDeRegisterWatcher(ZooKeeperHiveHelper zooKeeperHiveHelper) {
+    this.zooKeeperHiveHelper = zooKeeperHiveHelper;
+  }
 
-exception MetaException {
-  1: string message
+  @Override
+  public void process(WatchedEvent event) {
+    if (event.getType().equals(Watcher.Event.EventType.NodeDeleted)) {
+      zooKeeperHiveHelper.deregisterZnode();
+    }
+  }
 }
-
-/**
-* This interface is live.
-*/
-service ThriftHiveMetastore extends fb303.FacebookService
-{
-  // get metastore server delegation token for use from the map/reduce tasks to authenticate
-  // to metastore server
-  string get_delegation_token(1:string token_owner, 2:string renewer_kerberos_principal_name)
-    throws (1:MetaException o1)
-}
-

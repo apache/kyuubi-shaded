@@ -1,6 +1,4 @@
-#!/usr/local/bin/thrift -java
-
-/**
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -18,28 +16,26 @@
  * limitations under the License.
  */
 
-#
-# Thrift Service that the MetaStore is built on
-#
+package org.apache.kyuubi.hive.metastore;
 
-include "fb303.thrift"
+public class HiveMetaException extends Exception {
 
-namespace java org.apache.kyuubi.hive.metastore.api
+  public HiveMetaException() {
+    // TODO Auto-generated constructor stub
+  }
 
-// Exceptions.
+  public HiveMetaException(String message) {
+    super(message);
+    // TODO Auto-generated constructor stub
+  }
 
-exception MetaException {
-  1: string message
+  public HiveMetaException(Throwable cause) {
+    super(cause);
+    // TODO Auto-generated constructor stub
+  }
+
+  public HiveMetaException(String message, Throwable cause) {
+    super(message, cause);
+    // TODO Auto-generated constructor stub
+  }
 }
-
-/**
-* This interface is live.
-*/
-service ThriftHiveMetastore extends fb303.FacebookService
-{
-  // get metastore server delegation token for use from the map/reduce tasks to authenticate
-  // to metastore server
-  string get_delegation_token(1:string token_owner, 2:string renewer_kerberos_principal_name)
-    throws (1:MetaException o1)
-}
-
