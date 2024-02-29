@@ -1,4 +1,4 @@
-kyuubi-relocated-hive-service-rpc
+kyuubi-relocated-thrift
 Copyright 2023-2024 The Apache Software Foundation
 
 This product includes software developed at
@@ -6,4 +6,5 @@ The Apache Software Foundation (https://www.apache.org/).
 
 This project bundles the following dependencies under the Apache Software License 2.0 (https://www.apache.org/licenses/LICENSE-2.0.txt)
 
-- org.apache.hive:hive-service-rpc:3.1.3
+- org.apache.thrift:libfb303:0.9.3
+- org.apache.thrift:libthrift:0.9.3-1
