@@ -13,45 +13,45 @@ package org.apache.kyuubi.shaded.hive.metastore.api;
   /**
    * This interface is live.
    */
-  @org.apache.hadoop.classification.InterfaceAudience.Public @org.apache.hadoop.classification.InterfaceStability.Stable public interface Iface extends com.facebook.fb303.FacebookService.Iface {
+  @org.apache.hadoop.classification.InterfaceAudience.Public @org.apache.hadoop.classification.InterfaceStability.Stable public interface Iface extends org.apache.kyuubi.shaded.fb303.FacebookService.Iface {
 
-    public java.lang.String get_delegation_token(java.lang.String token_owner, java.lang.String renewer_kerberos_principal_name) throws MetaException, org.apache.thrift.TException;
-
-  }
-
-  @org.apache.hadoop.classification.InterfaceAudience.Public @org.apache.hadoop.classification.InterfaceStability.Stable public interface AsyncIface extends com.facebook.fb303.FacebookService .AsyncIface {
-
-    public void get_delegation_token(java.lang.String token_owner, java.lang.String renewer_kerberos_principal_name, org.apache.thrift.async.AsyncMethodCallback<java.lang.String> resultHandler) throws org.apache.thrift.TException;
+    public java.lang.String get_delegation_token(java.lang.String token_owner, java.lang.String renewer_kerberos_principal_name) throws MetaException, org.apache.kyuubi.shaded.thrift.TException;
 
   }
 
-  @org.apache.hadoop.classification.InterfaceAudience.Public @org.apache.hadoop.classification.InterfaceStability.Stable public static class Client extends com.facebook.fb303.FacebookService.Client implements Iface {
-    @org.apache.hadoop.classification.InterfaceAudience.Public @org.apache.hadoop.classification.InterfaceStability.Stable public static class Factory implements org.apache.thrift.TServiceClientFactory<Client> {
+  @org.apache.hadoop.classification.InterfaceAudience.Public @org.apache.hadoop.classification.InterfaceStability.Stable public interface AsyncIface extends org.apache.kyuubi.shaded.fb303.FacebookService .AsyncIface {
+
+    public void get_delegation_token(java.lang.String token_owner, java.lang.String renewer_kerberos_principal_name, org.apache.kyuubi.shaded.thrift.async.AsyncMethodCallback<java.lang.String> resultHandler) throws org.apache.kyuubi.shaded.thrift.TException;
+
+  }
+
+  @org.apache.hadoop.classification.InterfaceAudience.Public @org.apache.hadoop.classification.InterfaceStability.Stable public static class Client extends org.apache.kyuubi.shaded.fb303.FacebookService.Client implements Iface {
+    @org.apache.hadoop.classification.InterfaceAudience.Public @org.apache.hadoop.classification.InterfaceStability.Stable public static class Factory implements org.apache.kyuubi.shaded.thrift.TServiceClientFactory<Client> {
       public Factory() {}
-      public Client getClient(org.apache.thrift.protocol.TProtocol prot) {
+      public Client getClient(org.apache.kyuubi.shaded.thrift.protocol.TProtocol prot) {
         return new Client(prot);
       }
-      public Client getClient(org.apache.thrift.protocol.TProtocol iprot, org.apache.thrift.protocol.TProtocol oprot) {
+      public Client getClient(org.apache.kyuubi.shaded.thrift.protocol.TProtocol iprot, org.apache.kyuubi.shaded.thrift.protocol.TProtocol oprot) {
         return new Client(iprot, oprot);
       }
     }
 
-    public Client(org.apache.thrift.protocol.TProtocol prot)
+    public Client(org.apache.kyuubi.shaded.thrift.protocol.TProtocol prot)
     {
       super(prot, prot);
     }
 
-    public Client(org.apache.thrift.protocol.TProtocol iprot, org.apache.thrift.protocol.TProtocol oprot) {
+    public Client(org.apache.kyuubi.shaded.thrift.protocol.TProtocol iprot, org.apache.kyuubi.shaded.thrift.protocol.TProtocol oprot) {
       super(iprot, oprot);
     }
 
-    public java.lang.String get_delegation_token(java.lang.String token_owner, java.lang.String renewer_kerberos_principal_name) throws MetaException, org.apache.thrift.TException
+    public java.lang.String get_delegation_token(java.lang.String token_owner, java.lang.String renewer_kerberos_principal_name) throws MetaException, org.apache.kyuubi.shaded.thrift.TException
     {
       send_get_delegation_token(token_owner, renewer_kerberos_principal_name);
       return recv_get_delegation_token();
     }
 
-    public void send_get_delegation_token(java.lang.String token_owner, java.lang.String renewer_kerberos_principal_name) throws org.apache.thrift.TException
+    public void send_get_delegation_token(java.lang.String token_owner, java.lang.String renewer_kerberos_principal_name) throws org.apache.kyuubi.shaded.thrift.TException
     {
       get_delegation_token_args args = new get_delegation_token_args();
       args.setToken_owner(token_owner);
@@ -59,7 +59,7 @@ package org.apache.kyuubi.shaded.hive.metastore.api;
       sendBase("get_delegation_token", args);
     }
 
-    public java.lang.String recv_get_delegation_token() throws MetaException, org.apache.thrift.TException
+    public java.lang.String recv_get_delegation_token() throws MetaException, org.apache.kyuubi.shaded.thrift.TException
     {
       get_delegation_token_result result = new get_delegation_token_result();
       receiveBase(result, "get_delegation_token");
@@ -69,45 +69,45 @@ package org.apache.kyuubi.shaded.hive.metastore.api;
       if (result.o1 != null) {
         throw result.o1;
       }
-      throw new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.MISSING_RESULT, "get_delegation_token failed: unknown result");
+      throw new org.apache.kyuubi.shaded.thrift.TApplicationException(org.apache.kyuubi.shaded.thrift.TApplicationException.MISSING_RESULT, "get_delegation_token failed: unknown result");
     }
 
   }
-  @org.apache.hadoop.classification.InterfaceAudience.Public @org.apache.hadoop.classification.InterfaceStability.Stable public static class AsyncClient extends com.facebook.fb303.FacebookService.AsyncClient implements AsyncIface {
-    @org.apache.hadoop.classification.InterfaceAudience.Public @org.apache.hadoop.classification.InterfaceStability.Stable public static class Factory implements org.apache.thrift.async.TAsyncClientFactory<AsyncClient> {
-      private org.apache.thrift.async.TAsyncClientManager clientManager;
-      private org.apache.thrift.protocol.TProtocolFactory protocolFactory;
-      public Factory(org.apache.thrift.async.TAsyncClientManager clientManager, org.apache.thrift.protocol.TProtocolFactory protocolFactory) {
+  @org.apache.hadoop.classification.InterfaceAudience.Public @org.apache.hadoop.classification.InterfaceStability.Stable public static class AsyncClient extends org.apache.kyuubi.shaded.fb303.FacebookService.AsyncClient implements AsyncIface {
+    @org.apache.hadoop.classification.InterfaceAudience.Public @org.apache.hadoop.classification.InterfaceStability.Stable public static class Factory implements org.apache.kyuubi.shaded.thrift.async.TAsyncClientFactory<AsyncClient> {
+      private org.apache.kyuubi.shaded.thrift.async.TAsyncClientManager clientManager;
+      private org.apache.kyuubi.shaded.thrift.protocol.TProtocolFactory protocolFactory;
+      public Factory(org.apache.kyuubi.shaded.thrift.async.TAsyncClientManager clientManager, org.apache.kyuubi.shaded.thrift.protocol.TProtocolFactory protocolFactory) {
         this.clientManager = clientManager;
         this.protocolFactory = protocolFactory;
       }
-      public AsyncClient getAsyncClient(org.apache.thrift.transport.TNonblockingTransport transport) {
+      public AsyncClient getAsyncClient(org.apache.kyuubi.shaded.thrift.transport.TNonblockingTransport transport) {
         return new AsyncClient(protocolFactory, clientManager, transport);
       }
     }
 
-    public AsyncClient(org.apache.thrift.protocol.TProtocolFactory protocolFactory, org.apache.thrift.async.TAsyncClientManager clientManager, org.apache.thrift.transport.TNonblockingTransport transport) {
+    public AsyncClient(org.apache.kyuubi.shaded.thrift.protocol.TProtocolFactory protocolFactory, org.apache.kyuubi.shaded.thrift.async.TAsyncClientManager clientManager, org.apache.kyuubi.shaded.thrift.transport.TNonblockingTransport transport) {
       super(protocolFactory, clientManager, transport);
     }
 
-    public void get_delegation_token(java.lang.String token_owner, java.lang.String renewer_kerberos_principal_name, org.apache.thrift.async.AsyncMethodCallback<java.lang.String> resultHandler) throws org.apache.thrift.TException {
+    public void get_delegation_token(java.lang.String token_owner, java.lang.String renewer_kerberos_principal_name, org.apache.kyuubi.shaded.thrift.async.AsyncMethodCallback<java.lang.String> resultHandler) throws org.apache.kyuubi.shaded.thrift.TException {
       checkReady();
       get_delegation_token_call method_call = new get_delegation_token_call(token_owner, renewer_kerberos_principal_name, resultHandler, this, ___protocolFactory, ___transport);
       this.___currentMethod = method_call;
       ___manager.call(method_call);
     }
 
-    @org.apache.hadoop.classification.InterfaceAudience.Public @org.apache.hadoop.classification.InterfaceStability.Stable public static class get_delegation_token_call extends org.apache.thrift.async.TAsyncMethodCall<java.lang.String> {
+    @org.apache.hadoop.classification.InterfaceAudience.Public @org.apache.hadoop.classification.InterfaceStability.Stable public static class get_delegation_token_call extends org.apache.kyuubi.shaded.thrift.async.TAsyncMethodCall<java.lang.String> {
       private java.lang.String token_owner;
       private java.lang.String renewer_kerberos_principal_name;
-      public get_delegation_token_call(java.lang.String token_owner, java.lang.String renewer_kerberos_principal_name, org.apache.thrift.async.AsyncMethodCallback<java.lang.String> resultHandler, org.apache.thrift.async.TAsyncClient client, org.apache.thrift.protocol.TProtocolFactory protocolFactory, org.apache.thrift.transport.TNonblockingTransport transport) throws org.apache.thrift.TException {
+      public get_delegation_token_call(java.lang.String token_owner, java.lang.String renewer_kerberos_principal_name, org.apache.kyuubi.shaded.thrift.async.AsyncMethodCallback<java.lang.String> resultHandler, org.apache.kyuubi.shaded.thrift.async.TAsyncClient client, org.apache.kyuubi.shaded.thrift.protocol.TProtocolFactory protocolFactory, org.apache.kyuubi.shaded.thrift.transport.TNonblockingTransport transport) throws org.apache.kyuubi.shaded.thrift.TException {
         super(client, protocolFactory, transport, resultHandler, false);
         this.token_owner = token_owner;
         this.renewer_kerberos_principal_name = renewer_kerberos_principal_name;
       }
 
-      public void write_args(org.apache.thrift.protocol.TProtocol prot) throws org.apache.thrift.TException {
-        prot.writeMessageBegin(new org.apache.thrift.protocol.TMessage("get_delegation_token", org.apache.thrift.protocol.TMessageType.CALL, 0));
+      public void write_args(org.apache.kyuubi.shaded.thrift.protocol.TProtocol prot) throws org.apache.kyuubi.shaded.thrift.TException {
+        prot.writeMessageBegin(new org.apache.kyuubi.shaded.thrift.protocol.TMessage("get_delegation_token", org.apache.kyuubi.shaded.thrift.protocol.TMessageType.CALL, 0));
         get_delegation_token_args args = new get_delegation_token_args();
         args.setToken_owner(token_owner);
         args.setRenewer_kerberos_principal_name(renewer_kerberos_principal_name);
@@ -115,34 +115,34 @@ package org.apache.kyuubi.shaded.hive.metastore.api;
         prot.writeMessageEnd();
       }
 
-      public java.lang.String getResult() throws MetaException, org.apache.thrift.TException {
-        if (getState() != org.apache.thrift.async.TAsyncMethodCall.State.RESPONSE_READ) {
+      public java.lang.String getResult() throws MetaException, org.apache.kyuubi.shaded.thrift.TException {
+        if (getState() != org.apache.kyuubi.shaded.thrift.async.TAsyncMethodCall.State.RESPONSE_READ) {
           throw new java.lang.IllegalStateException("Method call not finished!");
         }
-        org.apache.thrift.transport.TMemoryInputTransport memoryTransport = new org.apache.thrift.transport.TMemoryInputTransport(getFrameBuffer().array());
-        org.apache.thrift.protocol.TProtocol prot = client.getProtocolFactory().getProtocol(memoryTransport);
+        org.apache.kyuubi.shaded.thrift.transport.TMemoryInputTransport memoryTransport = new org.apache.kyuubi.shaded.thrift.transport.TMemoryInputTransport(getFrameBuffer().array());
+        org.apache.kyuubi.shaded.thrift.protocol.TProtocol prot = client.getProtocolFactory().getProtocol(memoryTransport);
         return (new Client(prot)).recv_get_delegation_token();
       }
     }
 
   }
 
-  @org.apache.hadoop.classification.InterfaceAudience.Public @org.apache.hadoop.classification.InterfaceStability.Stable public static class Processor<I extends Iface> extends com.facebook.fb303.FacebookService.Processor<I> implements org.apache.thrift.TProcessor {
+  @org.apache.hadoop.classification.InterfaceAudience.Public @org.apache.hadoop.classification.InterfaceStability.Stable public static class Processor<I extends Iface> extends org.apache.kyuubi.shaded.fb303.FacebookService.Processor<I> implements org.apache.kyuubi.shaded.thrift.TProcessor {
     private static final org.slf4j.Logger _LOGGER = org.slf4j.LoggerFactory.getLogger(Processor.class.getName());
     public Processor(I iface) {
-      super(iface, getProcessMap(new java.util.HashMap<java.lang.String, org.apache.thrift.ProcessFunction<I, ? extends org.apache.thrift.TBase>>()));
+      super(iface, getProcessMap(new java.util.HashMap<java.lang.String, org.apache.kyuubi.shaded.thrift.ProcessFunction<I, ? extends org.apache.kyuubi.shaded.thrift.TBase>>()));
     }
 
-    protected Processor(I iface, java.util.Map<java.lang.String, org.apache.thrift.ProcessFunction<I, ? extends org.apache.thrift.TBase>> processMap) {
+    protected Processor(I iface, java.util.Map<java.lang.String, org.apache.kyuubi.shaded.thrift.ProcessFunction<I, ? extends org.apache.kyuubi.shaded.thrift.TBase>> processMap) {
       super(iface, getProcessMap(processMap));
     }
 
-    private static <I extends Iface> java.util.Map<java.lang.String,  org.apache.thrift.ProcessFunction<I, ? extends org.apache.thrift.TBase>> getProcessMap(java.util.Map<java.lang.String, org.apache.thrift.ProcessFunction<I, ? extends  org.apache.thrift.TBase>> processMap) {
+    private static <I extends Iface> java.util.Map<java.lang.String,  org.apache.kyuubi.shaded.thrift.ProcessFunction<I, ? extends org.apache.kyuubi.shaded.thrift.TBase>> getProcessMap(java.util.Map<java.lang.String, org.apache.kyuubi.shaded.thrift.ProcessFunction<I, ? extends  org.apache.kyuubi.shaded.thrift.TBase>> processMap) {
       processMap.put("get_delegation_token", new get_delegation_token());
       return processMap;
     }
 
-    @org.apache.hadoop.classification.InterfaceAudience.Public @org.apache.hadoop.classification.InterfaceStability.Stable public static class get_delegation_token<I extends Iface> extends org.apache.thrift.ProcessFunction<I, get_delegation_token_args> {
+    @org.apache.hadoop.classification.InterfaceAudience.Public @org.apache.hadoop.classification.InterfaceStability.Stable public static class get_delegation_token<I extends Iface> extends org.apache.kyuubi.shaded.thrift.ProcessFunction<I, get_delegation_token_args> {
       public get_delegation_token() {
         super("get_delegation_token");
       }
@@ -160,7 +160,7 @@ package org.apache.kyuubi.shaded.hive.metastore.api;
         return false;
       }
 
-      public get_delegation_token_result getResult(I iface, get_delegation_token_args args) throws org.apache.thrift.TException {
+      public get_delegation_token_result getResult(I iface, get_delegation_token_args args) throws org.apache.kyuubi.shaded.thrift.TException {
         get_delegation_token_result result = new get_delegation_token_result();
         try {
           result.success = iface.get_delegation_token(args.token_owner, args.renewer_kerberos_principal_name);
@@ -173,22 +173,22 @@ package org.apache.kyuubi.shaded.hive.metastore.api;
 
   }
 
-  @org.apache.hadoop.classification.InterfaceAudience.Public @org.apache.hadoop.classification.InterfaceStability.Stable public static class AsyncProcessor<I extends AsyncIface> extends com.facebook.fb303.FacebookService.AsyncProcessor<I> {
+  @org.apache.hadoop.classification.InterfaceAudience.Public @org.apache.hadoop.classification.InterfaceStability.Stable public static class AsyncProcessor<I extends AsyncIface> extends org.apache.kyuubi.shaded.fb303.FacebookService.AsyncProcessor<I> {
     private static final org.slf4j.Logger _LOGGER = org.slf4j.LoggerFactory.getLogger(AsyncProcessor.class.getName());
     public AsyncProcessor(I iface) {
-      super(iface, getProcessMap(new java.util.HashMap<java.lang.String, org.apache.thrift.AsyncProcessFunction<I, ? extends org.apache.thrift.TBase, ?>>()));
+      super(iface, getProcessMap(new java.util.HashMap<java.lang.String, org.apache.kyuubi.shaded.thrift.AsyncProcessFunction<I, ? extends org.apache.kyuubi.shaded.thrift.TBase, ?>>()));
     }
 
-    protected AsyncProcessor(I iface, java.util.Map<java.lang.String,  org.apache.thrift.AsyncProcessFunction<I, ? extends  org.apache.thrift.TBase, ?>> processMap) {
+    protected AsyncProcessor(I iface, java.util.Map<java.lang.String,  org.apache.kyuubi.shaded.thrift.AsyncProcessFunction<I, ? extends  org.apache.kyuubi.shaded.thrift.TBase, ?>> processMap) {
       super(iface, getProcessMap(processMap));
     }
 
-    private static <I extends AsyncIface> java.util.Map<java.lang.String,  org.apache.thrift.AsyncProcessFunction<I, ? extends  org.apache.thrift.TBase,?>> getProcessMap(java.util.Map<java.lang.String,  org.apache.thrift.AsyncProcessFunction<I, ? extends  org.apache.thrift.TBase, ?>> processMap) {
+    private static <I extends AsyncIface> java.util.Map<java.lang.String,  org.apache.kyuubi.shaded.thrift.AsyncProcessFunction<I, ? extends  org.apache.kyuubi.shaded.thrift.TBase,?>> getProcessMap(java.util.Map<java.lang.String,  org.apache.kyuubi.shaded.thrift.AsyncProcessFunction<I, ? extends  org.apache.kyuubi.shaded.thrift.TBase, ?>> processMap) {
       processMap.put("get_delegation_token", new get_delegation_token());
       return processMap;
     }
 
-    @org.apache.hadoop.classification.InterfaceAudience.Public @org.apache.hadoop.classification.InterfaceStability.Stable public static class get_delegation_token<I extends AsyncIface> extends org.apache.thrift.AsyncProcessFunction<I, get_delegation_token_args, java.lang.String> {
+    @org.apache.hadoop.classification.InterfaceAudience.Public @org.apache.hadoop.classification.InterfaceStability.Stable public static class get_delegation_token<I extends AsyncIface> extends org.apache.kyuubi.shaded.thrift.AsyncProcessFunction<I, get_delegation_token_args, java.lang.String> {
       public get_delegation_token() {
         super("get_delegation_token");
       }
@@ -197,15 +197,15 @@ package org.apache.kyuubi.shaded.hive.metastore.api;
         return new get_delegation_token_args();
       }
 
-      public org.apache.thrift.async.AsyncMethodCallback<java.lang.String> getResultHandler(final org.apache.thrift.server.AbstractNonblockingServer.AsyncFrameBuffer fb, final int seqid) {
-        final org.apache.thrift.AsyncProcessFunction fcall = this;
-        return new org.apache.thrift.async.AsyncMethodCallback<java.lang.String>() { 
+      public org.apache.kyuubi.shaded.thrift.async.AsyncMethodCallback<java.lang.String> getResultHandler(final org.apache.kyuubi.shaded.thrift.server.AbstractNonblockingServer.AsyncFrameBuffer fb, final int seqid) {
+        final org.apache.kyuubi.shaded.thrift.AsyncProcessFunction fcall = this;
+        return new org.apache.kyuubi.shaded.thrift.async.AsyncMethodCallback<java.lang.String>() { 
           public void onComplete(java.lang.String o) {
             get_delegation_token_result result = new get_delegation_token_result();
             result.success = o;
             try {
-              fcall.sendResponse(fb, result, org.apache.thrift.protocol.TMessageType.REPLY,seqid);
-            } catch (org.apache.thrift.transport.TTransportException e) {
+              fcall.sendResponse(fb, result, org.apache.kyuubi.shaded.thrift.protocol.TMessageType.REPLY,seqid);
+            } catch (org.apache.kyuubi.shaded.thrift.transport.TTransportException e) {
               _LOGGER.error("TTransportException writing to internal frame buffer", e);
               fb.close();
             } catch (java.lang.Exception e) {
@@ -214,25 +214,25 @@ package org.apache.kyuubi.shaded.hive.metastore.api;
             }
           }
           public void onError(java.lang.Exception e) {
-            byte msgType = org.apache.thrift.protocol.TMessageType.REPLY;
-            org.apache.thrift.TSerializable msg;
+            byte msgType = org.apache.kyuubi.shaded.thrift.protocol.TMessageType.REPLY;
+            org.apache.kyuubi.shaded.thrift.TSerializable msg;
             get_delegation_token_result result = new get_delegation_token_result();
             if (e instanceof MetaException) {
               result.o1 = (MetaException) e;
               result.setO1IsSet(true);
               msg = result;
-            } else if (e instanceof org.apache.thrift.transport.TTransportException) {
+            } else if (e instanceof org.apache.kyuubi.shaded.thrift.transport.TTransportException) {
               _LOGGER.error("TTransportException inside handler", e);
               fb.close();
               return;
-            } else if (e instanceof org.apache.thrift.TApplicationException) {
+            } else if (e instanceof org.apache.kyuubi.shaded.thrift.TApplicationException) {
               _LOGGER.error("TApplicationException inside handler", e);
-              msgType = org.apache.thrift.protocol.TMessageType.EXCEPTION;
-              msg = (org.apache.thrift.TApplicationException)e;
+              msgType = org.apache.kyuubi.shaded.thrift.protocol.TMessageType.EXCEPTION;
+              msg = (org.apache.kyuubi.shaded.thrift.TApplicationException)e;
             } else {
               _LOGGER.error("Exception inside handler", e);
-              msgType = org.apache.thrift.protocol.TMessageType.EXCEPTION;
-              msg = new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.INTERNAL_ERROR, e.getMessage());
+              msgType = org.apache.kyuubi.shaded.thrift.protocol.TMessageType.EXCEPTION;
+              msg = new org.apache.kyuubi.shaded.thrift.TApplicationException(org.apache.kyuubi.shaded.thrift.TApplicationException.INTERNAL_ERROR, e.getMessage());
             }
             try {
               fcall.sendResponse(fb,msg,msgType,seqid);
@@ -248,27 +248,27 @@ package org.apache.kyuubi.shaded.hive.metastore.api;
         return false;
       }
 
-      public void start(I iface, get_delegation_token_args args, org.apache.thrift.async.AsyncMethodCallback<java.lang.String> resultHandler) throws org.apache.thrift.TException {
+      public void start(I iface, get_delegation_token_args args, org.apache.kyuubi.shaded.thrift.async.AsyncMethodCallback<java.lang.String> resultHandler) throws org.apache.kyuubi.shaded.thrift.TException {
         iface.get_delegation_token(args.token_owner, args.renewer_kerberos_principal_name,resultHandler);
       }
     }
 
   }
 
-  @org.apache.hadoop.classification.InterfaceAudience.Public @org.apache.hadoop.classification.InterfaceStability.Stable public static class get_delegation_token_args implements org.apache.thrift.TBase<get_delegation_token_args, get_delegation_token_args._Fields>, java.io.Serializable, Cloneable, Comparable<get_delegation_token_args>   {
-    private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("get_delegation_token_args");
+  @org.apache.hadoop.classification.InterfaceAudience.Public @org.apache.hadoop.classification.InterfaceStability.Stable public static class get_delegation_token_args implements org.apache.kyuubi.shaded.thrift.TBase<get_delegation_token_args, get_delegation_token_args._Fields>, java.io.Serializable, Cloneable, Comparable<get_delegation_token_args>   {
+    private static final org.apache.kyuubi.shaded.thrift.protocol.TStruct STRUCT_DESC = new org.apache.kyuubi.shaded.thrift.protocol.TStruct("get_delegation_token_args");
 
-    private static final org.apache.thrift.protocol.TField TOKEN_OWNER_FIELD_DESC = new org.apache.thrift.protocol.TField("token_owner", org.apache.thrift.protocol.TType.STRING, (short)1);
-    private static final org.apache.thrift.protocol.TField RENEWER_KERBEROS_PRINCIPAL_NAME_FIELD_DESC = new org.apache.thrift.protocol.TField("renewer_kerberos_principal_name", org.apache.thrift.protocol.TType.STRING, (short)2);
+    private static final org.apache.kyuubi.shaded.thrift.protocol.TField TOKEN_OWNER_FIELD_DESC = new org.apache.kyuubi.shaded.thrift.protocol.TField("token_owner", org.apache.kyuubi.shaded.thrift.protocol.TType.STRING, (short)1);
+    private static final org.apache.kyuubi.shaded.thrift.protocol.TField RENEWER_KERBEROS_PRINCIPAL_NAME_FIELD_DESC = new org.apache.kyuubi.shaded.thrift.protocol.TField("renewer_kerberos_principal_name", org.apache.kyuubi.shaded.thrift.protocol.TType.STRING, (short)2);
 
-    private static final org.apache.thrift.scheme.SchemeFactory STANDARD_SCHEME_FACTORY = new get_delegation_token_argsStandardSchemeFactory();
-    private static final org.apache.thrift.scheme.SchemeFactory TUPLE_SCHEME_FACTORY = new get_delegation_token_argsTupleSchemeFactory();
+    private static final org.apache.kyuubi.shaded.thrift.scheme.SchemeFactory STANDARD_SCHEME_FACTORY = new get_delegation_token_argsStandardSchemeFactory();
+    private static final org.apache.kyuubi.shaded.thrift.scheme.SchemeFactory TUPLE_SCHEME_FACTORY = new get_delegation_token_argsTupleSchemeFactory();
 
-    private @org.apache.thrift.annotation.Nullable java.lang.String token_owner; // required
-    private @org.apache.thrift.annotation.Nullable java.lang.String renewer_kerberos_principal_name; // required
+    private @org.apache.kyuubi.shaded.thrift.annotation.Nullable java.lang.String token_owner; // required
+    private @org.apache.kyuubi.shaded.thrift.annotation.Nullable java.lang.String renewer_kerberos_principal_name; // required
 
     /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
-    public enum _Fields implements org.apache.thrift.TFieldIdEnum {
+    public enum _Fields implements org.apache.kyuubi.shaded.thrift.TFieldIdEnum {
       TOKEN_OWNER((short)1, "token_owner"),
       RENEWER_KERBEROS_PRINCIPAL_NAME((short)2, "renewer_kerberos_principal_name");
 
@@ -283,7 +283,7 @@ package org.apache.kyuubi.shaded.hive.metastore.api;
       /**
        * Find the _Fields constant that matches fieldId, or null if its not found.
        */
-      @org.apache.thrift.annotation.Nullable
+      @org.apache.kyuubi.shaded.thrift.annotation.Nullable
       public static _Fields findByThriftId(int fieldId) {
         switch(fieldId) {
           case 1: // TOKEN_OWNER
@@ -308,7 +308,7 @@ package org.apache.kyuubi.shaded.hive.metastore.api;
       /**
        * Find the _Fields constant that matches name, or null if its not found.
        */
-      @org.apache.thrift.annotation.Nullable
+      @org.apache.kyuubi.shaded.thrift.annotation.Nullable
       public static _Fields findByName(java.lang.String name) {
         return byName.get(name);
       }
@@ -331,15 +331,15 @@ package org.apache.kyuubi.shaded.hive.metastore.api;
     }
 
     // isset id assignments
-    public static final java.util.Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
+    public static final java.util.Map<_Fields, org.apache.kyuubi.shaded.thrift.meta_data.FieldMetaData> metaDataMap;
     static {
-      java.util.Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new java.util.EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
-      tmpMap.put(_Fields.TOKEN_OWNER, new org.apache.thrift.meta_data.FieldMetaData("token_owner", org.apache.thrift.TFieldRequirementType.DEFAULT, 
-          new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
-      tmpMap.put(_Fields.RENEWER_KERBEROS_PRINCIPAL_NAME, new org.apache.thrift.meta_data.FieldMetaData("renewer_kerberos_principal_name", org.apache.thrift.TFieldRequirementType.DEFAULT, 
-          new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
+      java.util.Map<_Fields, org.apache.kyuubi.shaded.thrift.meta_data.FieldMetaData> tmpMap = new java.util.EnumMap<_Fields, org.apache.kyuubi.shaded.thrift.meta_data.FieldMetaData>(_Fields.class);
+      tmpMap.put(_Fields.TOKEN_OWNER, new org.apache.kyuubi.shaded.thrift.meta_data.FieldMetaData("token_owner", org.apache.kyuubi.shaded.thrift.TFieldRequirementType.DEFAULT, 
+          new org.apache.kyuubi.shaded.thrift.meta_data.FieldValueMetaData(org.apache.kyuubi.shaded.thrift.protocol.TType.STRING)));
+      tmpMap.put(_Fields.RENEWER_KERBEROS_PRINCIPAL_NAME, new org.apache.kyuubi.shaded.thrift.meta_data.FieldMetaData("renewer_kerberos_principal_name", org.apache.kyuubi.shaded.thrift.TFieldRequirementType.DEFAULT, 
+          new org.apache.kyuubi.shaded.thrift.meta_data.FieldValueMetaData(org.apache.kyuubi.shaded.thrift.protocol.TType.STRING)));
       metaDataMap = java.util.Collections.unmodifiableMap(tmpMap);
-      org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(get_delegation_token_args.class, metaDataMap);
+      org.apache.kyuubi.shaded.thrift.meta_data.FieldMetaData.addStructMetaDataMap(get_delegation_token_args.class, metaDataMap);
     }
 
     public get_delegation_token_args() {
@@ -376,12 +376,12 @@ package org.apache.kyuubi.shaded.hive.metastore.api;
       this.renewer_kerberos_principal_name = null;
     }
 
-    @org.apache.thrift.annotation.Nullable
+    @org.apache.kyuubi.shaded.thrift.annotation.Nullable
     public java.lang.String getToken_owner() {
       return this.token_owner;
     }
 
-    public void setToken_owner(@org.apache.thrift.annotation.Nullable java.lang.String token_owner) {
+    public void setToken_owner(@org.apache.kyuubi.shaded.thrift.annotation.Nullable java.lang.String token_owner) {
       this.token_owner = token_owner;
     }
 
@@ -400,12 +400,12 @@ package org.apache.kyuubi.shaded.hive.metastore.api;
       }
     }
 
-    @org.apache.thrift.annotation.Nullable
+    @org.apache.kyuubi.shaded.thrift.annotation.Nullable
     public java.lang.String getRenewer_kerberos_principal_name() {
       return this.renewer_kerberos_principal_name;
     }
 
-    public void setRenewer_kerberos_principal_name(@org.apache.thrift.annotation.Nullable java.lang.String renewer_kerberos_principal_name) {
+    public void setRenewer_kerberos_principal_name(@org.apache.kyuubi.shaded.thrift.annotation.Nullable java.lang.String renewer_kerberos_principal_name) {
       this.renewer_kerberos_principal_name = renewer_kerberos_principal_name;
     }
 
@@ -424,7 +424,7 @@ package org.apache.kyuubi.shaded.hive.metastore.api;
       }
     }
 
-    public void setFieldValue(_Fields field, @org.apache.thrift.annotation.Nullable java.lang.Object value) {
+    public void setFieldValue(_Fields field, @org.apache.kyuubi.shaded.thrift.annotation.Nullable java.lang.Object value) {
       switch (field) {
       case TOKEN_OWNER:
         if (value == null) {
@@ -445,7 +445,7 @@ package org.apache.kyuubi.shaded.hive.metastore.api;
       }
     }
 
-    @org.apache.thrift.annotation.Nullable
+    @org.apache.kyuubi.shaded.thrift.annotation.Nullable
     public java.lang.Object getFieldValue(_Fields field) {
       switch (field) {
       case TOKEN_OWNER:
@@ -535,7 +535,7 @@ package org.apache.kyuubi.shaded.hive.metastore.api;
         return lastComparison;
       }
       if (isSetToken_owner()) {
-        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.token_owner, other.token_owner);
+        lastComparison = org.apache.kyuubi.shaded.thrift.TBaseHelper.compareTo(this.token_owner, other.token_owner);
         if (lastComparison != 0) {
           return lastComparison;
         }
@@ -545,7 +545,7 @@ package org.apache.kyuubi.shaded.hive.metastore.api;
         return lastComparison;
       }
       if (isSetRenewer_kerberos_principal_name()) {
-        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.renewer_kerberos_principal_name, other.renewer_kerberos_principal_name);
+        lastComparison = org.apache.kyuubi.shaded.thrift.TBaseHelper.compareTo(this.renewer_kerberos_principal_name, other.renewer_kerberos_principal_name);
         if (lastComparison != 0) {
           return lastComparison;
         }
@@ -553,16 +553,16 @@ package org.apache.kyuubi.shaded.hive.metastore.api;
       return 0;
     }
 
-    @org.apache.thrift.annotation.Nullable
+    @org.apache.kyuubi.shaded.thrift.annotation.Nullable
     public _Fields fieldForId(int fieldId) {
       return _Fields.findByThriftId(fieldId);
     }
 
-    public void read(org.apache.thrift.protocol.TProtocol iprot) throws org.apache.thrift.TException {
+    public void read(org.apache.kyuubi.shaded.thrift.protocol.TProtocol iprot) throws org.apache.kyuubi.shaded.thrift.TException {
       scheme(iprot).read(iprot, this);
     }
 
-    public void write(org.apache.thrift.protocol.TProtocol oprot) throws org.apache.thrift.TException {
+    public void write(org.apache.kyuubi.shaded.thrift.protocol.TProtocol oprot) throws org.apache.kyuubi.shaded.thrift.TException {
       scheme(oprot).write(oprot, this);
     }
 
@@ -590,63 +590,63 @@ package org.apache.kyuubi.shaded.hive.metastore.api;
       return sb.toString();
     }
 
-    public void validate() throws org.apache.thrift.TException {
+    public void validate() throws org.apache.kyuubi.shaded.thrift.TException {
       // check for required fields
       // check for sub-struct validity
     }
 
     private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
       try {
-        write(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(out)));
-      } catch (org.apache.thrift.TException te) {
+        write(new org.apache.kyuubi.shaded.thrift.protocol.TCompactProtocol(new org.apache.kyuubi.shaded.thrift.transport.TIOStreamTransport(out)));
+      } catch (org.apache.kyuubi.shaded.thrift.TException te) {
         throw new java.io.IOException(te);
       }
     }
 
     private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, java.lang.ClassNotFoundException {
       try {
-        read(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(in)));
-      } catch (org.apache.thrift.TException te) {
+        read(new org.apache.kyuubi.shaded.thrift.protocol.TCompactProtocol(new org.apache.kyuubi.shaded.thrift.transport.TIOStreamTransport(in)));
+      } catch (org.apache.kyuubi.shaded.thrift.TException te) {
         throw new java.io.IOException(te);
       }
     }
 
-    private static class get_delegation_token_argsStandardSchemeFactory implements org.apache.thrift.scheme.SchemeFactory {
+    private static class get_delegation_token_argsStandardSchemeFactory implements org.apache.kyuubi.shaded.thrift.scheme.SchemeFactory {
       public get_delegation_token_argsStandardScheme getScheme() {
         return new get_delegation_token_argsStandardScheme();
       }
     }
 
-    private static class get_delegation_token_argsStandardScheme extends org.apache.thrift.scheme.StandardScheme<get_delegation_token_args> {
+    private static class get_delegation_token_argsStandardScheme extends org.apache.kyuubi.shaded.thrift.scheme.StandardScheme<get_delegation_token_args> {
 
-      public void read(org.apache.thrift.protocol.TProtocol iprot, get_delegation_token_args struct) throws org.apache.thrift.TException {
-        org.apache.thrift.protocol.TField schemeField;
+      public void read(org.apache.kyuubi.shaded.thrift.protocol.TProtocol iprot, get_delegation_token_args struct) throws org.apache.kyuubi.shaded.thrift.TException {
+        org.apache.kyuubi.shaded.thrift.protocol.TField schemeField;
         iprot.readStructBegin();
         while (true)
         {
           schemeField = iprot.readFieldBegin();
-          if (schemeField.type == org.apache.thrift.protocol.TType.STOP) { 
+          if (schemeField.type == org.apache.kyuubi.shaded.thrift.protocol.TType.STOP) { 
             break;
           }
           switch (schemeField.id) {
             case 1: // TOKEN_OWNER
-              if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
+              if (schemeField.type == org.apache.kyuubi.shaded.thrift.protocol.TType.STRING) {
                 struct.token_owner = iprot.readString();
                 struct.setToken_ownerIsSet(true);
               } else { 
-                org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+                org.apache.kyuubi.shaded.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
               }
               break;
             case 2: // RENEWER_KERBEROS_PRINCIPAL_NAME
-              if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
+              if (schemeField.type == org.apache.kyuubi.shaded.thrift.protocol.TType.STRING) {
                 struct.renewer_kerberos_principal_name = iprot.readString();
                 struct.setRenewer_kerberos_principal_nameIsSet(true);
               } else { 
-                org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+                org.apache.kyuubi.shaded.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
               }
               break;
             default:
-              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+              org.apache.kyuubi.shaded.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
           }
           iprot.readFieldEnd();
         }
@@ -654,7 +654,7 @@ package org.apache.kyuubi.shaded.hive.metastore.api;
         struct.validate();
       }
 
-      public void write(org.apache.thrift.protocol.TProtocol oprot, get_delegation_token_args struct) throws org.apache.thrift.TException {
+      public void write(org.apache.kyuubi.shaded.thrift.protocol.TProtocol oprot, get_delegation_token_args struct) throws org.apache.kyuubi.shaded.thrift.TException {
         struct.validate();
 
         oprot.writeStructBegin(STRUCT_DESC);
@@ -674,17 +674,17 @@ package org.apache.kyuubi.shaded.hive.metastore.api;
 
     }
 
-    private static class get_delegation_token_argsTupleSchemeFactory implements org.apache.thrift.scheme.SchemeFactory {
+    private static class get_delegation_token_argsTupleSchemeFactory implements org.apache.kyuubi.shaded.thrift.scheme.SchemeFactory {
       public get_delegation_token_argsTupleScheme getScheme() {
         return new get_delegation_token_argsTupleScheme();
       }
     }
 
-    private static class get_delegation_token_argsTupleScheme extends org.apache.thrift.scheme.TupleScheme<get_delegation_token_args> {
+    private static class get_delegation_token_argsTupleScheme extends org.apache.kyuubi.shaded.thrift.scheme.TupleScheme<get_delegation_token_args> {
 
       @Override
-      public void write(org.apache.thrift.protocol.TProtocol prot, get_delegation_token_args struct) throws org.apache.thrift.TException {
-        org.apache.thrift.protocol.TTupleProtocol oprot = (org.apache.thrift.protocol.TTupleProtocol) prot;
+      public void write(org.apache.kyuubi.shaded.thrift.protocol.TProtocol prot, get_delegation_token_args struct) throws org.apache.kyuubi.shaded.thrift.TException {
+        org.apache.kyuubi.shaded.thrift.protocol.TTupleProtocol oprot = (org.apache.kyuubi.shaded.thrift.protocol.TTupleProtocol) prot;
         java.util.BitSet optionals = new java.util.BitSet();
         if (struct.isSetToken_owner()) {
           optionals.set(0);
@@ -702,8 +702,8 @@ package org.apache.kyuubi.shaded.hive.metastore.api;
       }
 
       @Override
-      public void read(org.apache.thrift.protocol.TProtocol prot, get_delegation_token_args struct) throws org.apache.thrift.TException {
-        org.apache.thrift.protocol.TTupleProtocol iprot = (org.apache.thrift.protocol.TTupleProtocol) prot;
+      public void read(org.apache.kyuubi.shaded.thrift.protocol.TProtocol prot, get_delegation_token_args struct) throws org.apache.kyuubi.shaded.thrift.TException {
+        org.apache.kyuubi.shaded.thrift.protocol.TTupleProtocol iprot = (org.apache.kyuubi.shaded.thrift.protocol.TTupleProtocol) prot;
         java.util.BitSet incoming = iprot.readBitSet(2);
         if (incoming.get(0)) {
           struct.token_owner = iprot.readString();
@@ -716,25 +716,25 @@ package org.apache.kyuubi.shaded.hive.metastore.api;
       }
     }
 
-    private static <S extends org.apache.thrift.scheme.IScheme> S scheme(org.apache.thrift.protocol.TProtocol proto) {
-      return (org.apache.thrift.scheme.StandardScheme.class.equals(proto.getScheme()) ? STANDARD_SCHEME_FACTORY : TUPLE_SCHEME_FACTORY).getScheme();
+    private static <S extends org.apache.kyuubi.shaded.thrift.scheme.IScheme> S scheme(org.apache.kyuubi.shaded.thrift.protocol.TProtocol proto) {
+      return (org.apache.kyuubi.shaded.thrift.scheme.StandardScheme.class.equals(proto.getScheme()) ? STANDARD_SCHEME_FACTORY : TUPLE_SCHEME_FACTORY).getScheme();
     }
   }
 
-  @org.apache.hadoop.classification.InterfaceAudience.Public @org.apache.hadoop.classification.InterfaceStability.Stable public static class get_delegation_token_result implements org.apache.thrift.TBase<get_delegation_token_result, get_delegation_token_result._Fields>, java.io.Serializable, Cloneable, Comparable<get_delegation_token_result>   {
-    private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("get_delegation_token_result");
+  @org.apache.hadoop.classification.InterfaceAudience.Public @org.apache.hadoop.classification.InterfaceStability.Stable public static class get_delegation_token_result implements org.apache.kyuubi.shaded.thrift.TBase<get_delegation_token_result, get_delegation_token_result._Fields>, java.io.Serializable, Cloneable, Comparable<get_delegation_token_result>   {
+    private static final org.apache.kyuubi.shaded.thrift.protocol.TStruct STRUCT_DESC = new org.apache.kyuubi.shaded.thrift.protocol.TStruct("get_delegation_token_result");
 
-    private static final org.apache.thrift.protocol.TField SUCCESS_FIELD_DESC = new org.apache.thrift.protocol.TField("success", org.apache.thrift.protocol.TType.STRING, (short)0);
-    private static final org.apache.thrift.protocol.TField O1_FIELD_DESC = new org.apache.thrift.protocol.TField("o1", org.apache.thrift.protocol.TType.STRUCT, (short)1);
+    private static final org.apache.kyuubi.shaded.thrift.protocol.TField SUCCESS_FIELD_DESC = new org.apache.kyuubi.shaded.thrift.protocol.TField("success", org.apache.kyuubi.shaded.thrift.protocol.TType.STRING, (short)0);
+    private static final org.apache.kyuubi.shaded.thrift.protocol.TField O1_FIELD_DESC = new org.apache.kyuubi.shaded.thrift.protocol.TField("o1", org.apache.kyuubi.shaded.thrift.protocol.TType.STRUCT, (short)1);
 
-    private static final org.apache.thrift.scheme.SchemeFactory STANDARD_SCHEME_FACTORY = new get_delegation_token_resultStandardSchemeFactory();
-    private static final org.apache.thrift.scheme.SchemeFactory TUPLE_SCHEME_FACTORY = new get_delegation_token_resultTupleSchemeFactory();
+    private static final org.apache.kyuubi.shaded.thrift.scheme.SchemeFactory STANDARD_SCHEME_FACTORY = new get_delegation_token_resultStandardSchemeFactory();
+    private static final org.apache.kyuubi.shaded.thrift.scheme.SchemeFactory TUPLE_SCHEME_FACTORY = new get_delegation_token_resultTupleSchemeFactory();
 
-    private @org.apache.thrift.annotation.Nullable java.lang.String success; // required
-    private @org.apache.thrift.annotation.Nullable MetaException o1; // required
+    private @org.apache.kyuubi.shaded.thrift.annotation.Nullable java.lang.String success; // required
+    private @org.apache.kyuubi.shaded.thrift.annotation.Nullable MetaException o1; // required
 
     /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
-    public enum _Fields implements org.apache.thrift.TFieldIdEnum {
+    public enum _Fields implements org.apache.kyuubi.shaded.thrift.TFieldIdEnum {
       SUCCESS((short)0, "success"),
       O1((short)1, "o1");
 
@@ -749,7 +749,7 @@ package org.apache.kyuubi.shaded.hive.metastore.api;
       /**
        * Find the _Fields constant that matches fieldId, or null if its not found.
        */
-      @org.apache.thrift.annotation.Nullable
+      @org.apache.kyuubi.shaded.thrift.annotation.Nullable
       public static _Fields findByThriftId(int fieldId) {
         switch(fieldId) {
           case 0: // SUCCESS
@@ -774,7 +774,7 @@ package org.apache.kyuubi.shaded.hive.metastore.api;
       /**
        * Find the _Fields constant that matches name, or null if its not found.
        */
-      @org.apache.thrift.annotation.Nullable
+      @org.apache.kyuubi.shaded.thrift.annotation.Nullable
       public static _Fields findByName(java.lang.String name) {
         return byName.get(name);
       }
@@ -797,15 +797,15 @@ package org.apache.kyuubi.shaded.hive.metastore.api;
     }
 
     // isset id assignments
-    public static final java.util.Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
+    public static final java.util.Map<_Fields, org.apache.kyuubi.shaded.thrift.meta_data.FieldMetaData> metaDataMap;
     static {
-      java.util.Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new java.util.EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
-      tmpMap.put(_Fields.SUCCESS, new org.apache.thrift.meta_data.FieldMetaData("success", org.apache.thrift.TFieldRequirementType.DEFAULT, 
-          new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
-      tmpMap.put(_Fields.O1, new org.apache.thrift.meta_data.FieldMetaData("o1", org.apache.thrift.TFieldRequirementType.DEFAULT, 
-          new org.apache.thrift.meta_data.StructMetaData(org.apache.thrift.protocol.TType.STRUCT, MetaException.class)));
+      java.util.Map<_Fields, org.apache.kyuubi.shaded.thrift.meta_data.FieldMetaData> tmpMap = new java.util.EnumMap<_Fields, org.apache.kyuubi.shaded.thrift.meta_data.FieldMetaData>(_Fields.class);
+      tmpMap.put(_Fields.SUCCESS, new org.apache.kyuubi.shaded.thrift.meta_data.FieldMetaData("success", org.apache.kyuubi.shaded.thrift.TFieldRequirementType.DEFAULT, 
+          new org.apache.kyuubi.shaded.thrift.meta_data.FieldValueMetaData(org.apache.kyuubi.shaded.thrift.protocol.TType.STRING)));
+      tmpMap.put(_Fields.O1, new org.apache.kyuubi.shaded.thrift.meta_data.FieldMetaData("o1", org.apache.kyuubi.shaded.thrift.TFieldRequirementType.DEFAULT, 
+          new org.apache.kyuubi.shaded.thrift.meta_data.StructMetaData(org.apache.kyuubi.shaded.thrift.protocol.TType.STRUCT, MetaException.class)));
       metaDataMap = java.util.Collections.unmodifiableMap(tmpMap);
-      org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(get_delegation_token_result.class, metaDataMap);
+      org.apache.kyuubi.shaded.thrift.meta_data.FieldMetaData.addStructMetaDataMap(get_delegation_token_result.class, metaDataMap);
     }
 
     public get_delegation_token_result() {
@@ -842,12 +842,12 @@ package org.apache.kyuubi.shaded.hive.metastore.api;
       this.o1 = null;
     }
 
-    @org.apache.thrift.annotation.Nullable
+    @org.apache.kyuubi.shaded.thrift.annotation.Nullable
     public java.lang.String getSuccess() {
       return this.success;
     }
 
-    public void setSuccess(@org.apache.thrift.annotation.Nullable java.lang.String success) {
+    public void setSuccess(@org.apache.kyuubi.shaded.thrift.annotation.Nullable java.lang.String success) {
       this.success = success;
     }
 
@@ -866,12 +866,12 @@ package org.apache.kyuubi.shaded.hive.metastore.api;
       }
     }
 
-    @org.apache.thrift.annotation.Nullable
+    @org.apache.kyuubi.shaded.thrift.annotation.Nullable
     public MetaException getO1() {
       return this.o1;
     }
 
-    public void setO1(@org.apache.thrift.annotation.Nullable MetaException o1) {
+    public void setO1(@org.apache.kyuubi.shaded.thrift.annotation.Nullable MetaException o1) {
       this.o1 = o1;
     }
 
@@ -890,7 +890,7 @@ package org.apache.kyuubi.shaded.hive.metastore.api;
       }
     }
 
-    public void setFieldValue(_Fields field, @org.apache.thrift.annotation.Nullable java.lang.Object value) {
+    public void setFieldValue(_Fields field, @org.apache.kyuubi.shaded.thrift.annotation.Nullable java.lang.Object value) {
       switch (field) {
       case SUCCESS:
         if (value == null) {
@@ -911,7 +911,7 @@ package org.apache.kyuubi.shaded.hive.metastore.api;
       }
     }
 
-    @org.apache.thrift.annotation.Nullable
+    @org.apache.kyuubi.shaded.thrift.annotation.Nullable
     public java.lang.Object getFieldValue(_Fields field) {
       switch (field) {
       case SUCCESS:
@@ -1001,7 +1001,7 @@ package org.apache.kyuubi.shaded.hive.metastore.api;
         return lastComparison;
       }
       if (isSetSuccess()) {
-        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.success, other.success);
+        lastComparison = org.apache.kyuubi.shaded.thrift.TBaseHelper.compareTo(this.success, other.success);
         if (lastComparison != 0) {
           return lastComparison;
         }
@@ -1011,7 +1011,7 @@ package org.apache.kyuubi.shaded.hive.metastore.api;
         return lastComparison;
       }
       if (isSetO1()) {
-        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.o1, other.o1);
+        lastComparison = org.apache.kyuubi.shaded.thrift.TBaseHelper.compareTo(this.o1, other.o1);
         if (lastComparison != 0) {
           return lastComparison;
         }
@@ -1019,16 +1019,16 @@ package org.apache.kyuubi.shaded.hive.metastore.api;
       return 0;
     }
 
-    @org.apache.thrift.annotation.Nullable
+    @org.apache.kyuubi.shaded.thrift.annotation.Nullable
     public _Fields fieldForId(int fieldId) {
       return _Fields.findByThriftId(fieldId);
     }
 
-    public void read(org.apache.thrift.protocol.TProtocol iprot) throws org.apache.thrift.TException {
+    public void read(org.apache.kyuubi.shaded.thrift.protocol.TProtocol iprot) throws org.apache.kyuubi.shaded.thrift.TException {
       scheme(iprot).read(iprot, this);
     }
 
-    public void write(org.apache.thrift.protocol.TProtocol oprot) throws org.apache.thrift.TException {
+    public void write(org.apache.kyuubi.shaded.thrift.protocol.TProtocol oprot) throws org.apache.kyuubi.shaded.thrift.TException {
       scheme(oprot).write(oprot, this);
       }
 
@@ -1056,64 +1056,64 @@ package org.apache.kyuubi.shaded.hive.metastore.api;
       return sb.toString();
     }
 
-    public void validate() throws org.apache.thrift.TException {
+    public void validate() throws org.apache.kyuubi.shaded.thrift.TException {
       // check for required fields
       // check for sub-struct validity
     }
 
     private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
       try {
-        write(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(out)));
-      } catch (org.apache.thrift.TException te) {
+        write(new org.apache.kyuubi.shaded.thrift.protocol.TCompactProtocol(new org.apache.kyuubi.shaded.thrift.transport.TIOStreamTransport(out)));
+      } catch (org.apache.kyuubi.shaded.thrift.TException te) {
         throw new java.io.IOException(te);
       }
     }
 
     private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, java.lang.ClassNotFoundException {
       try {
-        read(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(in)));
-      } catch (org.apache.thrift.TException te) {
+        read(new org.apache.kyuubi.shaded.thrift.protocol.TCompactProtocol(new org.apache.kyuubi.shaded.thrift.transport.TIOStreamTransport(in)));
+      } catch (org.apache.kyuubi.shaded.thrift.TException te) {
         throw new java.io.IOException(te);
       }
     }
 
-    private static class get_delegation_token_resultStandardSchemeFactory implements org.apache.thrift.scheme.SchemeFactory {
+    private static class get_delegation_token_resultStandardSchemeFactory implements org.apache.kyuubi.shaded.thrift.scheme.SchemeFactory {
       public get_delegation_token_resultStandardScheme getScheme() {
         return new get_delegation_token_resultStandardScheme();
       }
     }
 
-    private static class get_delegation_token_resultStandardScheme extends org.apache.thrift.scheme.StandardScheme<get_delegation_token_result> {
+    private static class get_delegation_token_resultStandardScheme extends org.apache.kyuubi.shaded.thrift.scheme.StandardScheme<get_delegation_token_result> {
 
-      public void read(org.apache.thrift.protocol.TProtocol iprot, get_delegation_token_result struct) throws org.apache.thrift.TException {
-        org.apache.thrift.protocol.TField schemeField;
+      public void read(org.apache.kyuubi.shaded.thrift.protocol.TProtocol iprot, get_delegation_token_result struct) throws org.apache.kyuubi.shaded.thrift.TException {
+        org.apache.kyuubi.shaded.thrift.protocol.TField schemeField;
         iprot.readStructBegin();
         while (true)
         {
           schemeField = iprot.readFieldBegin();
-          if (schemeField.type == org.apache.thrift.protocol.TType.STOP) { 
+          if (schemeField.type == org.apache.kyuubi.shaded.thrift.protocol.TType.STOP) { 
             break;
           }
           switch (schemeField.id) {
             case 0: // SUCCESS
-              if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
+              if (schemeField.type == org.apache.kyuubi.shaded.thrift.protocol.TType.STRING) {
                 struct.success = iprot.readString();
                 struct.setSuccessIsSet(true);
               } else { 
-                org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+                org.apache.kyuubi.shaded.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
               }
               break;
             case 1: // O1
-              if (schemeField.type == org.apache.thrift.protocol.TType.STRUCT) {
+              if (schemeField.type == org.apache.kyuubi.shaded.thrift.protocol.TType.STRUCT) {
                 struct.o1 = new MetaException();
                 struct.o1.read(iprot);
                 struct.setO1IsSet(true);
               } else { 
-                org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+                org.apache.kyuubi.shaded.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
               }
               break;
             default:
-              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+              org.apache.kyuubi.shaded.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
           }
           iprot.readFieldEnd();
         }
@@ -1121,7 +1121,7 @@ package org.apache.kyuubi.shaded.hive.metastore.api;
         struct.validate();
       }
 
-      public void write(org.apache.thrift.protocol.TProtocol oprot, get_delegation_token_result struct) throws org.apache.thrift.TException {
+      public void write(org.apache.kyuubi.shaded.thrift.protocol.TProtocol oprot, get_delegation_token_result struct) throws org.apache.kyuubi.shaded.thrift.TException {
         struct.validate();
 
         oprot.writeStructBegin(STRUCT_DESC);
@@ -1141,17 +1141,17 @@ package org.apache.kyuubi.shaded.hive.metastore.api;
 
     }
 
-    private static class get_delegation_token_resultTupleSchemeFactory implements org.apache.thrift.scheme.SchemeFactory {
+    private static class get_delegation_token_resultTupleSchemeFactory implements org.apache.kyuubi.shaded.thrift.scheme.SchemeFactory {
       public get_delegation_token_resultTupleScheme getScheme() {
         return new get_delegation_token_resultTupleScheme();
       }
     }
 
-    private static class get_delegation_token_resultTupleScheme extends org.apache.thrift.scheme.TupleScheme<get_delegation_token_result> {
+    private static class get_delegation_token_resultTupleScheme extends org.apache.kyuubi.shaded.thrift.scheme.TupleScheme<get_delegation_token_result> {
 
       @Override
-      public void write(org.apache.thrift.protocol.TProtocol prot, get_delegation_token_result struct) throws org.apache.thrift.TException {
-        org.apache.thrift.protocol.TTupleProtocol oprot = (org.apache.thrift.protocol.TTupleProtocol) prot;
+      public void write(org.apache.kyuubi.shaded.thrift.protocol.TProtocol prot, get_delegation_token_result struct) throws org.apache.kyuubi.shaded.thrift.TException {
+        org.apache.kyuubi.shaded.thrift.protocol.TTupleProtocol oprot = (org.apache.kyuubi.shaded.thrift.protocol.TTupleProtocol) prot;
         java.util.BitSet optionals = new java.util.BitSet();
         if (struct.isSetSuccess()) {
           optionals.set(0);
@@ -1169,8 +1169,8 @@ package org.apache.kyuubi.shaded.hive.metastore.api;
       }
 
       @Override
-      public void read(org.apache.thrift.protocol.TProtocol prot, get_delegation_token_result struct) throws org.apache.thrift.TException {
-        org.apache.thrift.protocol.TTupleProtocol iprot = (org.apache.thrift.protocol.TTupleProtocol) prot;
+      public void read(org.apache.kyuubi.shaded.thrift.protocol.TProtocol prot, get_delegation_token_result struct) throws org.apache.kyuubi.shaded.thrift.TException {
+        org.apache.kyuubi.shaded.thrift.protocol.TTupleProtocol iprot = (org.apache.kyuubi.shaded.thrift.protocol.TTupleProtocol) prot;
         java.util.BitSet incoming = iprot.readBitSet(2);
         if (incoming.get(0)) {
           struct.success = iprot.readString();
@@ -1184,8 +1184,8 @@ package org.apache.kyuubi.shaded.hive.metastore.api;
       }
     }
 
-    private static <S extends org.apache.thrift.scheme.IScheme> S scheme(org.apache.thrift.protocol.TProtocol proto) {
-      return (org.apache.thrift.scheme.StandardScheme.class.equals(proto.getScheme()) ? STANDARD_SCHEME_FACTORY : TUPLE_SCHEME_FACTORY).getScheme();
+    private static <S extends org.apache.kyuubi.shaded.thrift.scheme.IScheme> S scheme(org.apache.kyuubi.shaded.thrift.protocol.TProtocol proto) {
+      return (org.apache.kyuubi.shaded.thrift.scheme.StandardScheme.class.equals(proto.getScheme()) ? STANDARD_SCHEME_FACTORY : TUPLE_SCHEME_FACTORY).getScheme();
     }
   }
 

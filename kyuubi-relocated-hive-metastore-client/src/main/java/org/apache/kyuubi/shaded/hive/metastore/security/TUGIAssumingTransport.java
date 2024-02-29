@@ -21,8 +21,8 @@ package org.apache.kyuubi.shaded.hive.metastore.security;
 import java.io.IOException;
 import java.security.PrivilegedExceptionAction;
 import org.apache.hadoop.security.UserGroupInformation;
-import org.apache.thrift.transport.TTransport;
-import org.apache.thrift.transport.TTransportException;
+import org.apache.kyuubi.shaded.thrift.transport.TTransport;
+import org.apache.kyuubi.shaded.thrift.transport.TTransportException;
 
 /**
  * The Thrift SASL transports call Sasl.createSaslServer and Sasl.createSaslClient inside open().
