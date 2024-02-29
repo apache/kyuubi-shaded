@@ -1,6 +1,4 @@
-#!/usr/local/bin/thrift -java
-
-/**
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -18,28 +16,20 @@
  * limitations under the License.
  */
 
-#
-# Thrift Service that the MetaStore is built on
-#
+package org.apache.kyuubi.shaded.hive.metastore.hooks;
 
-include "fb303.thrift"
+import java.net.URI;
+import java.util.List;
+import org.apache.kyuubi.shaded.hive.metastore.HiveMetaException;
 
-namespace java org.apache.kyuubi.shaded.hive.metastore.api
+/** Allows different metastore uris to be resolved. */
+public interface URIResolverHook {
 
-// Exceptions.
-
-exception MetaException {
-  1: string message
+  /**
+   * Resolve to a proper thrift uri, or a list of uris, given uri of another scheme.
+   *
+   * @param uri
+   * @return
+   */
+  public List<URI> resolveURI(URI uri) throws HiveMetaException;
 }
-
-/**
-* This interface is live.
-*/
-service ThriftHiveMetastore extends fb303.FacebookService
-{
-  // get metastore server delegation token for use from the map/reduce tasks to authenticate
-  // to metastore server
-  string get_delegation_token(1:string token_owner, 2:string renewer_kerberos_principal_name)
-    throws (1:MetaException o1)
-}
-
