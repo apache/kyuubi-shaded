@@ -37,8 +37,6 @@ under the License.
         <hadoop.version>3.3.6</hadoop.version>
         <libfb303.version>0.9.3</libfb303.version>
         <libthrift.version>0.16.0</libthrift.version>
-        <curator.version>5.2.0</curator.version>
-        <zookeeper.version>3.7.1</zookeeper.version>
         <slf4j.version>1.7.36</slf4j.version>
         <!-- Thrift properties -->
         <thrift.home>you-must-set-this-to-run-thrift</thrift.home>
