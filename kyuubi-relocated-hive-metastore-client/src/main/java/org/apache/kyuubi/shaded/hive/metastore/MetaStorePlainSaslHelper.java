@@ -25,9 +25,9 @@ import javax.security.auth.callback.NameCallback;
 import javax.security.auth.callback.PasswordCallback;
 import javax.security.auth.callback.UnsupportedCallbackException;
 import javax.security.sasl.SaslException;
-import org.apache.thrift.transport.TSaslClientTransport;
-import org.apache.thrift.transport.TTransport;
-import org.apache.thrift.transport.TTransportException;
+import org.apache.kyuubi.shaded.thrift.transport.TSaslClientTransport;
+import org.apache.kyuubi.shaded.thrift.transport.TTransport;
+import org.apache.kyuubi.shaded.thrift.transport.TTransportException;
 
 // This is a copy of org.apache.hive.service.auth.PlainSaslHelper modified for HMS. See whether
 // we can deduplicate the code.

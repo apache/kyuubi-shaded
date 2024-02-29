@@ -51,16 +51,16 @@ import org.apache.kyuubi.shaded.hive.metastore.security.HadoopThriftAuthBridge;
 import org.apache.kyuubi.shaded.hive.metastore.utils.JavaUtils;
 import org.apache.kyuubi.shaded.hive.metastore.utils.MetaStoreUtils;
 import org.apache.kyuubi.shaded.hive.metastore.utils.SecurityUtils;
-import org.apache.thrift.TConfiguration;
-import org.apache.thrift.TException;
-import org.apache.thrift.protocol.TBinaryProtocol;
-import org.apache.thrift.protocol.TCompactProtocol;
-import org.apache.thrift.protocol.TProtocol;
-import org.apache.thrift.transport.THttpClient;
-import org.apache.thrift.transport.TSocket;
-import org.apache.thrift.transport.TTransport;
-import org.apache.thrift.transport.TTransportException;
-import org.apache.thrift.transport.layered.TFramedTransport;
+import org.apache.kyuubi.shaded.thrift.TConfiguration;
+import org.apache.kyuubi.shaded.thrift.TException;
+import org.apache.kyuubi.shaded.thrift.protocol.TBinaryProtocol;
+import org.apache.kyuubi.shaded.thrift.protocol.TCompactProtocol;
+import org.apache.kyuubi.shaded.thrift.protocol.TProtocol;
+import org.apache.kyuubi.shaded.thrift.transport.THttpClient;
+import org.apache.kyuubi.shaded.thrift.transport.TSocket;
+import org.apache.kyuubi.shaded.thrift.transport.TTransport;
+import org.apache.kyuubi.shaded.thrift.transport.TTransportException;
+import org.apache.kyuubi.shaded.thrift.transport.layered.TFramedTransport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -571,7 +571,7 @@ public class HiveMetaStoreClient implements IMetaStoreClient, AutoCloseable {
     boolean isHttpTransportMode =
         MetastoreConf.getVar(conf, ConfVars.METASTORE_CLIENT_THRIFT_TRANSPORT_MODE)
             .equalsIgnoreCase("http");
-    if (!isHttpTransportMode) {
+    if (isHttpTransportMode) {
       throw new IllegalArgumentException("HTTP mode is not supported");
     }
     Objects.requireNonNull(underlyingTransport, "Underlying transport should not be null");

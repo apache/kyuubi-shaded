@@ -41,8 +41,8 @@ import org.apache.kyuubi.shaded.hive.metastore.conf.MetastoreConf;
 import org.apache.kyuubi.shaded.hive.metastore.conf.MetastoreConf.ConfVars;
 import org.apache.kyuubi.shaded.hive.metastore.utils.JavaUtils;
 import org.apache.kyuubi.shaded.hive.metastore.utils.SecurityUtils;
-import org.apache.thrift.TException;
-import org.apache.thrift.transport.TTransportException;
+import org.apache.kyuubi.shaded.thrift.TException;
+import org.apache.kyuubi.shaded.thrift.transport.TTransportException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
