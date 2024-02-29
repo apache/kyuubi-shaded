@@ -29,6 +29,8 @@ import org.apache.kyuubi.shaded.curator.framework.api.ACLProvider;
 import org.apache.kyuubi.shaded.curator.framework.recipes.nodes.PersistentNode;
 import org.apache.kyuubi.shaded.curator.retry.ExponentialBackoffRetry;
 import org.apache.kyuubi.shaded.curator.retry.RetryOneTime;
+import org.apache.kyuubi.shaded.curator.utils.DefaultZookeeperFactory;
+import org.apache.kyuubi.shaded.curator.utils.ZookeeperFactory;
 import org.apache.kyuubi.shaded.zookeeper.CreateMode;
 import org.apache.kyuubi.shaded.zookeeper.KeeperException;
 import org.slf4j.Logger;
@@ -65,11 +67,6 @@ public class ZooKeeperHiveHelper {
     private int sessionTimeout;
     private int baseSleepTime;
     private int maxRetries;
-    private boolean sslEnabled = false;
-    private String keyStoreLocation = null;
-    private String keyStorePassword = null;
-    private String trustStoreLocation = null;
-    private String trustStorePassword = null;
 
     public ZooKeeperHiveHelper build() {
       return new ZooKeeperHiveHelper(this);
@@ -110,31 +107,6 @@ public class ZooKeeperHiveHelper {
       return this;
     }
 
-    public ZooKeeperHiveHelperBuilder sslEnabled(boolean sslEnabled) {
-      this.sslEnabled = sslEnabled;
-      return this;
-    }
-
-    public ZooKeeperHiveHelperBuilder keyStoreLocation(String keyStoreLocation) {
-      this.keyStoreLocation = keyStoreLocation;
-      return this;
-    }
-
-    public ZooKeeperHiveHelperBuilder keyStorePassword(String keyStorePassword) {
-      this.keyStorePassword = keyStorePassword;
-      return this;
-    }
-
-    public ZooKeeperHiveHelperBuilder trustStoreLocation(String trustStoreLocation) {
-      this.trustStoreLocation = trustStoreLocation;
-      return this;
-    }
-
-    public ZooKeeperHiveHelperBuilder trustStorePassword(String trustStorePassword) {
-      this.trustStorePassword = trustStorePassword;
-      return this;
-    }
-
     public String getQuorum() {
       return quorum;
     }
@@ -162,26 +134,6 @@ public class ZooKeeperHiveHelper {
     public int getMaxRetries() {
       return maxRetries;
     }
-
-    public boolean isSslEnabled() {
-      return sslEnabled;
-    }
-
-    public String getKeyStoreLocation() {
-      return keyStoreLocation;
-    }
-
-    public String getKeyStorePassword() {
-      return keyStorePassword;
-    }
-
-    public String getTrustStoreLocation() {
-      return trustStoreLocation;
-    }
-
-    public String getTrustStorePassword() {
-      return trustStorePassword;
-    }
   }
 
   public static ZooKeeperHiveHelper.ZooKeeperHiveHelperBuilder builder() {
@@ -194,9 +146,8 @@ public class ZooKeeperHiveHelper {
   private int sessionTimeout;
   private int baseSleepTime;
   private int maxRetries;
-  private boolean sslEnabled;
 
-  private SSLZookeeperFactory sslZookeeperFactory;
+  private ZookeeperFactory zookeeperFactory;
   private CuratorFramework zooKeeperClient;
   private boolean deregisteredWithZooKeeper = false; // Set to true only when deregistration happens
   private PersistentNode znode;
@@ -224,14 +175,7 @@ public class ZooKeeperHiveHelper {
     this.sessionTimeout = builder.getSessionTimeout();
     this.baseSleepTime = builder.getBaseSleepTime();
     this.maxRetries = builder.getMaxRetries();
-    this.sslEnabled = builder.isSslEnabled();
-    this.sslZookeeperFactory =
-        new SSLZookeeperFactory(
-            sslEnabled,
-            builder.getKeyStoreLocation(),
-            builder.getKeyStorePassword(),
-            builder.getTrustStoreLocation(),
-            builder.getTrustStorePassword());
+    this.zookeeperFactory = new DefaultZookeeperFactory();
   }
 
   /** Get the ensemble server addresses. The format is: host1:port, host2:port.. */
@@ -339,21 +283,20 @@ public class ZooKeeperHiveHelper {
       ACLProvider zooKeeperAclProvider, String nameSpace) {
     LOG.info(
         "Creating curator client with connectString: {} namespace: {} sessionTimeoutMs: {}"
-            + " connectionTimeoutMs: {} exponentialBackoff - sleepTime: {} maxRetries: {} sslEnabled: {}",
+            + " connectionTimeoutMs: {} exponentialBackoff - sleepTime: {} maxRetries: {}",
         quorum,
         nameSpace,
         sessionTimeout,
         connectionTimeout,
         baseSleepTime,
-        maxRetries,
-        sslEnabled);
+        maxRetries);
     // Create a CuratorFramework instance to be used as the ZooKeeper client.
     // Use the zooKeeperAclProvider, when specified, to create appropriate ACLs.
     CuratorFrameworkFactory.Builder builder =
         CuratorFrameworkFactory.builder()
             .connectString(quorum)
             .namespace(nameSpace)
-            .zookeeperFactory(this.sslZookeeperFactory);
+            .zookeeperFactory(this.zookeeperFactory);
     if (connectionTimeout > 0) {
       builder = builder.connectionTimeoutMs(connectionTimeout);
     }

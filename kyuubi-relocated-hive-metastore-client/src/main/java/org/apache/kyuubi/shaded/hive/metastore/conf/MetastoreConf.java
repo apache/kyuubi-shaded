@@ -145,11 +145,7 @@ public class MetastoreConf {
           ConfVars.SSL_KEYSTORE_PASSWORD.varname,
           ConfVars.SSL_KEYSTORE_PASSWORD.hiveName,
           ConfVars.SSL_TRUSTSTORE_PASSWORD.varname,
-          ConfVars.SSL_TRUSTSTORE_PASSWORD.hiveName,
-          ConfVars.THRIFT_ZOOKEEPER_SSL_KEYSTORE_PASSWORD.varname,
-          ConfVars.THRIFT_ZOOKEEPER_SSL_KEYSTORE_PASSWORD.hiveName,
-          ConfVars.THRIFT_ZOOKEEPER_SSL_TRUSTSTORE_PASSWORD.varname,
-          ConfVars.THRIFT_ZOOKEEPER_SSL_TRUSTSTORE_PASSWORD.hiveName);
+          ConfVars.SSL_TRUSTSTORE_PASSWORD.hiveName);
 
   public static ConfVars getMetaConf(String name) {
     return metaConfs.get(name);
@@ -308,40 +304,6 @@ public class MetastoreConf {
         new TimeValidator(TimeUnit.MILLISECONDS),
         "Initial amount of time (in milliseconds) to wait between retries\n"
             + "when connecting to the ZooKeeper server when using ExponentialBackoffRetry policy."),
-    THRIFT_ZOOKEEPER_SSL_ENABLE(
-        "metastore.zookeeper.ssl.client.enable",
-        "hive.zookeeper.ssl.client.enable",
-        false,
-        "Set client to use TLS when connecting to ZooKeeper.  An explicit value overrides any value set via the "
-            + "zookeeper.client.secure system property (note the different name).  Defaults to false if neither is set."),
-    THRIFT_ZOOKEEPER_SSL_KEYSTORE_LOCATION(
-        "metastore.zookeeper.ssl.keystore.location",
-        "hive.zookeeper.ssl.keystore.location",
-        "",
-        "Keystore location when using a client-side certificate with TLS connectivity to ZooKeeper. "
-            + "Overrides any explicit value set via the zookeeper.ssl.keyStore.location "
-            + "system property (note the camelCase)."),
-    THRIFT_ZOOKEEPER_SSL_KEYSTORE_PASSWORD(
-        "metastore.zookeeper.ssl.keystore.password",
-        "hive.zookeeper.ssl.keystore.password",
-        "",
-        "Keystore password when using a client-side certificate with TLS connectivity to ZooKeeper."
-            + "Overrides any explicit value set via the zookeeper.ssl.keyStore.password"
-            + "system property (note the camelCase)."),
-    THRIFT_ZOOKEEPER_SSL_TRUSTSTORE_LOCATION(
-        "metastore.zookeeper.ssl.truststore.location",
-        "hive.zookeeper.ssl.truststore.location",
-        "",
-        "Truststore location when using a client-side certificate with TLS connectivity to ZooKeeper. "
-            + "Overrides any explicit value set via the zookeeper.ssl.trustStore.location "
-            + "system property (note the camelCase)."),
-    THRIFT_ZOOKEEPER_SSL_TRUSTSTORE_PASSWORD(
-        "metastore.zookeeper.ssl.truststore.password",
-        "hive.zookeeper.ssl.truststore.password",
-        "",
-        "Truststore password when using a client-side certificate with TLS connectivity to ZooKeeper."
-            + "Overrides any explicit value set via the zookeeper.ssl.trustStore.password "
-            + "system property (note the camelCase)."),
     THRIFT_URI_SELECTION(
         "metastore.thrift.uri.selection",
         "hive.metastore.uri.selection",
@@ -1176,18 +1138,6 @@ public class MetastoreConf {
   }
 
   public static ZooKeeperHiveHelper getZKConfig(Configuration conf) {
-    String keyStorePassword = "";
-    String trustStorePassword = "";
-    if (MetastoreConf.getBoolVar(conf, ConfVars.THRIFT_ZOOKEEPER_SSL_ENABLE)) {
-      try {
-        keyStorePassword =
-            MetastoreConf.getPassword(conf, ConfVars.THRIFT_ZOOKEEPER_SSL_KEYSTORE_PASSWORD);
-        trustStorePassword =
-            MetastoreConf.getPassword(conf, ConfVars.THRIFT_ZOOKEEPER_SSL_TRUSTSTORE_PASSWORD);
-      } catch (IOException e) {
-        throw new RuntimeException("Failed to read zookeeper configuration passwords", e);
-      }
-    }
     return ZooKeeperHiveHelper.builder()
         .quorum(MetastoreConf.getVar(conf, ConfVars.THRIFT_URIS))
         .clientPort(MetastoreConf.getVar(conf, ConfVars.THRIFT_ZOOKEEPER_CLIENT_PORT))
@@ -1207,13 +1157,6 @@ public class MetastoreConf {
                     ConfVars.THRIFT_ZOOKEEPER_CONNECTION_BASESLEEPTIME,
                     TimeUnit.MILLISECONDS))
         .maxRetries(MetastoreConf.getIntVar(conf, ConfVars.THRIFT_ZOOKEEPER_CONNECTION_MAX_RETRIES))
-        .sslEnabled(MetastoreConf.getBoolVar(conf, ConfVars.THRIFT_ZOOKEEPER_SSL_ENABLE))
-        .keyStoreLocation(
-            MetastoreConf.getVar(conf, ConfVars.THRIFT_ZOOKEEPER_SSL_KEYSTORE_LOCATION))
-        .keyStorePassword(keyStorePassword)
-        .trustStoreLocation(
-            MetastoreConf.getVar(conf, ConfVars.THRIFT_ZOOKEEPER_SSL_TRUSTSTORE_LOCATION))
-        .trustStorePassword(trustStorePassword)
         .build();
   }
 

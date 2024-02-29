@@ -48,8 +48,7 @@ under the License.
     <dependencies>
         <dependency>
             <groupId>org.apache.kyuubi</groupId>
-            <!-- TODO: supports kyuubi-relocated-zookeeper-34 -->
-            <artifactId>kyuubi-relocated-zookeeper-36</artifactId>
+            <artifactId>kyuubi-relocated-zookeeper-34</artifactId>
             <version>${project.version}</version>
             <scope>provided</scope>
         </dependency>
