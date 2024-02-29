@@ -39,16 +39,6 @@ under the License.
         <jline.version>2.14.6</jline.version>
     </properties>
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.apache.zookeeper</groupId>
-                <artifactId>zookeeper</artifactId>
-                <version>${zookeeper.version}</version>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
     <dependencies>
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -71,6 +61,7 @@ under the License.
         <dependency>
             <groupId>org.apache.zookeeper</groupId>
             <artifactId>zookeeper</artifactId>
+            <version>${zookeeper.version}</version>
             <exclusions>
                 <exclusion>
                     <!-- only required for ZK servers, not clients -->
