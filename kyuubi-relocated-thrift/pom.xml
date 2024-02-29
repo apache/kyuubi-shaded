@@ -33,7 +33,7 @@ under the License.
 
     <properties>
         <fb303.version>0.9.3</fb303.version>
-        <thrift.version>0.9.3-1</thrift.version>
+        <thrift.version>0.16.0</thrift.version>
     </properties>
 
     <dependencies>

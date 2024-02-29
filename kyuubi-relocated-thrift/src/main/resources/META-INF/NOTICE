@@ -7,4 +7,4 @@ The Apache Software Foundation (https://www.apache.org/).
 This project bundles the following dependencies under the Apache Software License 2.0 (https://www.apache.org/licenses/LICENSE-2.0.txt)
 
 - org.apache.thrift:libfb303:0.9.3
-- org.apache.thrift:libthrift:0.9.3-1
+- org.apache.thrift:libthrift:0.16.0
