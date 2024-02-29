@@ -458,18 +458,11 @@ public class HiveMetaStoreClient implements IMetaStoreClient, AutoCloseable {
     TTransportException tte = null;
     MetaException recentME = null;
     boolean useSSL = MetastoreConf.getBoolVar(conf, ConfVars.USE_SSL);
-    boolean useSasl = MetastoreConf.getBoolVar(conf, ConfVars.USE_THRIFT_SASL);
-    String clientAuthMode = MetastoreConf.getVar(conf, ConfVars.METASTORE_CLIENT_AUTH_MODE);
-    boolean usePasswordAuth = false;
     boolean useCompactProtocol =
         MetastoreConf.getBoolVar(conf, ConfVars.USE_THRIFT_COMPACT_PROTOCOL);
     String transportMode =
         MetastoreConf.getVar(conf, ConfVars.METASTORE_CLIENT_THRIFT_TRANSPORT_MODE);
     boolean isHttpTransportMode = transportMode.equalsIgnoreCase("http");
-
-    if (clientAuthMode != null) {
-      usePasswordAuth = "PLAIN".equalsIgnoreCase(clientAuthMode);
-    }
 
     for (int attempt = 0; !isConnected && attempt < retries; ++attempt) {
       for (URI store : metastoreUris) {
