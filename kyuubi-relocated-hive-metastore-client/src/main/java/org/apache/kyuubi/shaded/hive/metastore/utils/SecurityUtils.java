@@ -17,7 +17,6 @@
  */
 package org.apache.kyuubi.shaded.hive.metastore.utils;
 
-import com.google.common.base.Preconditions;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -27,11 +26,7 @@ import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLParameters;
@@ -59,13 +54,13 @@ import org.apache.http.ssl.SSLContexts;
 import org.apache.kyuubi.shaded.hive.metastore.api.MetaException;
 import org.apache.kyuubi.shaded.hive.metastore.security.DelegationTokenIdentifier;
 import org.apache.kyuubi.shaded.hive.metastore.security.DelegationTokenSelector;
+import org.apache.kyuubi.shaded.zookeeper.client.ZooKeeperSaslClient;
 import org.apache.thrift.transport.THttpClient;
 import org.apache.thrift.transport.TSSLTransportFactory;
 import org.apache.thrift.transport.TServerSocket;
 import org.apache.thrift.transport.TSocket;
 import org.apache.thrift.transport.TTransport;
 import org.apache.thrift.transport.TTransportException;
-import org.apache.zookeeper.client.ZooKeeperSaslClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -315,7 +310,7 @@ public class SecurityUtils {
       HttpClientBuilder underlyingHttpClientBuilder)
       throws TTransportException, IOException, KeyStoreException, NoSuchAlgorithmException,
           CertificateException, KeyManagementException {
-    Preconditions.checkNotNull(underlyingHttpClientBuilder, "httpClientBuilder should not be null");
+    Objects.requireNonNull(underlyingHttpClientBuilder, "httpClientBuilder should not be null");
     if (trustStoreType == null || trustStoreType.isEmpty()) {
       trustStoreType = KeyStore.getDefaultType();
     }

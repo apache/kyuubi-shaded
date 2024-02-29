@@ -18,8 +18,6 @@
 
 package org.apache.kyuubi.shaded.hive.metastore;
 
-import com.google.common.annotations.VisibleForTesting;
-import com.google.common.base.Preconditions;
 import java.io.IOException;
 import java.net.URI;
 import java.util.ArrayList;
@@ -230,7 +228,6 @@ public class HiveMetaStoreClient implements IMetaStoreClient, AutoCloseable {
     metastoreUris[index] = tmp;
   }
 
-  @VisibleForTesting
   public TTransport getTTransport() {
     return transport;
   }
@@ -349,7 +346,6 @@ public class HiveMetaStoreClient implements IMetaStoreClient, AutoCloseable {
     return configureThriftMaxMessageSize(tHttpClient);
   }
 
-  @VisibleForTesting
   protected HttpClientBuilder createHttpClientBuilder() throws MetaException {
     HttpClientBuilder httpClientBuilder = HttpClientBuilder.create();
     String authType = MetastoreConf.getVar(conf, ConfVars.METASTORE_CLIENT_AUTH_MODE);
@@ -575,8 +571,10 @@ public class HiveMetaStoreClient implements IMetaStoreClient, AutoCloseable {
     boolean isHttpTransportMode =
         MetastoreConf.getVar(conf, ConfVars.METASTORE_CLIENT_THRIFT_TRANSPORT_MODE)
             .equalsIgnoreCase("http");
-    Preconditions.checkArgument(!isHttpTransportMode);
-    Preconditions.checkNotNull(underlyingTransport, "Underlying transport should not be null");
+    if (!isHttpTransportMode) {
+      throw new IllegalArgumentException("HTTP mode is not supported");
+    }
+    Objects.requireNonNull(underlyingTransport, "Underlying transport should not be null");
     // default transport is the underlying one
     TTransport transport = underlyingTransport;
     boolean useFramedTransport =

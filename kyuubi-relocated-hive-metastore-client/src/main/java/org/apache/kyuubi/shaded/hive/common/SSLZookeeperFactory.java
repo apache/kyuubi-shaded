@@ -19,11 +19,11 @@
 package org.apache.kyuubi.shaded.hive.common;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.curator.utils.ZookeeperFactory;
-import org.apache.zookeeper.Watcher;
-import org.apache.zookeeper.ZooKeeper;
-import org.apache.zookeeper.client.ZKClientConfig;
-import org.apache.zookeeper.common.ClientX509Util;
+import org.apache.kyuubi.shaded.curator.utils.ZookeeperFactory;
+import org.apache.kyuubi.shaded.zookeeper.Watcher;
+import org.apache.kyuubi.shaded.zookeeper.ZooKeeper;
+import org.apache.kyuubi.shaded.zookeeper.client.ZKClientConfig;
+import org.apache.kyuubi.shaded.zookeeper.common.ClientX509Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

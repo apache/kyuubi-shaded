@@ -17,7 +17,6 @@
  */
 package org.apache.kyuubi.shaded.hive.metastore.conf;
 
-import com.google.common.annotations.VisibleForTesting;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
@@ -76,7 +75,6 @@ public class MetastoreConf {
     }
   }
 
-  @VisibleForTesting
   static final String TEST_ENV_WORKAROUND = "metastore.testing.env.workaround.dont.ever.set.this.";
 
   private static class TimeValue {
