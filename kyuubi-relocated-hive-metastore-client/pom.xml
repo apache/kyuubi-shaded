@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.apache.kyuubi</groupId>
+        <artifactId>kyuubi-relocated-parent</artifactId>
+        <version>0.3.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>kyuubi-relocated-hive-metastore-client</artifactId>
+    <description>Relocated Hive MetaStore Client classes used by Kyuubi internally.</description>
+
+    <properties>
+        <!-- Dependency versions -->
+        <commons-lang3.version>3.12.0</commons-lang3.version>
+        <hadoop.version>3.3.6</hadoop.version>
+        <libfb303.version>0.9.3</libfb303.version>
+        <libthrift.version>0.16.0</libthrift.version>
+        <slf4j.version>1.7.36</slf4j.version>
+        <!-- Thrift properties -->
+        <thrift.home>you-must-set-this-to-run-thrift</thrift.home>
+        <thrift.file>src/main/thrift/hive_metastore.thrift</thrift.file>
+        <thrift.gen.dir>${basedir}/src/gen/thrift</thrift.gen.dir>
+        <thrift.args>-I ${thrift.home} -strict --gen java:beans,generated_annotations=undated</thrift.args>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.kyuubi</groupId>
+            <!-- TODO: supports kyuubi-relocated-zookeeper-34 -->
+            <artifactId>kyuubi-relocated-zookeeper-36</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.hadoop</groupId>
+            <artifactId>hadoop-client-api</artifactId>
+            <version>${hadoop.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- TODO: remove this dependency -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${commons-lang3.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.thrift</groupId>
+            <artifactId>libfb303</artifactId>
+            <version>${libfb303.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.thrift</groupId>
+            <artifactId>libthrift</artifactId>
+            <version>${libthrift.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>add-source</id>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <phase>generate-sources</phase>
+                        <configuration>
+                            <sources>
+                                <source>src/gen/thrift/gen-javabean</source>
+                                <source>${project.build.directory}/generated-sources</source>
+                                <source>src/gen/version</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>thriftif</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <version>3.1.0</version>
+                        <executions>
+                            <execution>
+                                <id>generate-thrift-sources</id>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                                <phase>generate-sources</phase>
+                                <configuration>
+                                    <target>
+                                        <delete dir="${thrift.gen.dir}"></delete>
+                                        <mkdir dir="${thrift.gen.dir}"></mkdir>
+                                        <echo message="Generating Thrift code for ${thrift.file}"></echo>
+                                        <exec dir="." executable="${thrift.home}/bin/thrift" failonerror="true">
+                                            <arg line="${thrift.args} -I ${basedir}/include -I ${basedir}/.. -o ${thrift.gen.dir} ${thrift.file} "></arg>
+                                        </exec>
+                                    </target>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>com.google.code.maven-replacer-plugin</groupId>
+                        <artifactId>replacer</artifactId>
+                        <version>1.5.3</version>
+                        <executions>
+                            <execution>
+                                <id>process-thrift-sources-interface-annotations</id>
+                                <goals>
+                                    <goal>replace</goal>
+                                </goals>
+                                <phase>process-sources</phase>
+                                <configuration>
+                                    <basedir>${basedir}/src/gen/thrift/gen-javabean/org/apache/kyuubi/shaded/hive/metastore/api/</basedir>
+                                    <filesToInclude>*.java</filesToInclude>
+                                    <replacements>
+                                        <replacement>
+                                            <token>public class</token>
+                                            <value>@org.apache.hadoop.classification.InterfaceAudience.Public @org.apache.hadoop.classification.InterfaceStability.Stable public class</value>
+                                            <unescape>true</unescape>
+                                        </replacement>
+                                        <replacement>
+                                            <token>public static class</token>
+                                            <value>@org.apache.hadoop.classification.InterfaceAudience.Public @org.apache.hadoop.classification.InterfaceStability.Stable public static class</value>
+                                            <unescape>true</unescape>
+                                        </replacement>
+                                        <replacement>
+                                            <token>public interface</token>
+                                            <value>@org.apache.hadoop.classification.InterfaceAudience.Public @org.apache.hadoop.classification.InterfaceStability.Stable public interface</value>
+                                            <unescape>true</unescape>
+                                        </replacement>
+                                    </replacements>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+</project>

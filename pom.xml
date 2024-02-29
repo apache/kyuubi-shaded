@@ -52,6 +52,7 @@
 
     <modules>
         <module>kyuubi-relocated-force-shading</module>
+        <module>kyuubi-relocated-hive-metastore-client</module>
         <module>kyuubi-relocated-hive-service-rpc</module>
         <module>kyuubi-relocated-zookeeper-parent</module>
     </modules>
