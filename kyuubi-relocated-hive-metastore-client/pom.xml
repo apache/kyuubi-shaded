@@ -233,7 +233,7 @@ under the License.
                                 </goals>
                                 <phase>process-sources</phase>
                                 <configuration>
-                                    <basedir>${basedir}/src/gen/thrift/gen-javabean/org/apache/kyuubi/hive/metastore/api/</basedir>
+                                    <basedir>${basedir}/src/gen/thrift/gen-javabean/org/apache/kyuubi/shaded/hive/metastore/api/</basedir>
                                     <filesToInclude>*.java</filesToInclude>
                                     <replacements>
                                         <replacement>
