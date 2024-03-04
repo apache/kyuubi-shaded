@@ -33,9 +33,9 @@ under the License.
 
     <properties>
         <!-- Dependency versions -->
-        <commons-lang3.version>3.12.0</commons-lang3.version>
         <hadoop.version>3.3.6</hadoop.version>
-        <httpcomponents.core.version>4.5.14</httpcomponents.core.version>
+        <httpclient.version>4.5.14</httpclient.version>
+        <httpcore.version>4.4.16</httpcore.version>
         <libfb303.version>0.9.3</libfb303.version>
         <libthrift.version>0.16.0</libthrift.version>
         <slf4j.version>1.7.36</slf4j.version>
@@ -52,12 +52,24 @@ under the License.
             <artifactId>kyuubi-relocated-thrift</artifactId>
             <version>${project.version}</version>
             <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>*</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.apache.kyuubi</groupId>
             <artifactId>kyuubi-relocated-zookeeper-34</artifactId>
             <version>${project.version}</version>
             <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>*</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -74,14 +86,18 @@ under the License.
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
-            <version>${httpcomponents.core.version}</version>
-            <scope>provided</scope>
+            <version>${httpclient.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
-        <!-- TODO: remove this dependency -->
         <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>${commons-lang3.version}</version>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpcore</artifactId>
+            <version>${httpcore.version}</version>
         </dependency>
     </dependencies>
 
