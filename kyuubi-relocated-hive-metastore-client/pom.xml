@@ -25,7 +25,7 @@ under the License.
     <parent>
         <groupId>org.apache.kyuubi</groupId>
         <artifactId>kyuubi-relocated-parent</artifactId>
-        <version>0.3.0-SNAPSHOT</version>
+        <version>0.4.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>kyuubi-relocated-hive-metastore-client</artifactId>
@@ -33,8 +33,9 @@ under the License.
 
     <properties>
         <!-- Dependency versions -->
-        <commons-lang3.version>3.12.0</commons-lang3.version>
         <hadoop.version>3.3.6</hadoop.version>
+        <httpclient.version>4.5.14</httpclient.version>
+        <httpcore.version>4.4.16</httpcore.version>
         <libfb303.version>0.9.3</libfb303.version>
         <libthrift.version>0.16.0</libthrift.version>
         <slf4j.version>1.7.36</slf4j.version>
@@ -48,9 +49,27 @@ under the License.
     <dependencies>
         <dependency>
             <groupId>org.apache.kyuubi</groupId>
+            <artifactId>kyuubi-relocated-thrift</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>*</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.kyuubi</groupId>
             <artifactId>kyuubi-relocated-zookeeper-34</artifactId>
             <version>${project.version}</version>
             <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>*</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -64,21 +83,23 @@ under the License.
             <version>${hadoop.version}</version>
             <scope>provided</scope>
         </dependency>
-        <!-- TODO: remove this dependency -->
         <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>${commons-lang3.version}</version>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>${httpclient.version}</version>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
-            <groupId>org.apache.thrift</groupId>
-            <artifactId>libfb303</artifactId>
-            <version>${libfb303.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.thrift</groupId>
-            <artifactId>libthrift</artifactId>
-            <version>${libthrift.version}</version>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpcore</artifactId>
+            <version>${httpcore.version}</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 
@@ -141,6 +162,23 @@ under the License.
                         <artifactId>replacer</artifactId>
                         <version>1.5.3</version>
                         <executions>
+                            <execution>
+                                <id>process-thrift-sources-relocate-thrift-package</id>
+                                <goals>
+                                    <goal>replace</goal>
+                                </goals>
+                                <phase>process-sources</phase>
+                                <configuration>
+                                    <basedir>${basedir}/src/gen/thrift/gen-javabean/org/apache/kyuubi/shaded/hive/metastore/api/</basedir>
+                                    <includes>
+                                        <include>MetaException.java</include>
+                                        <include>ThriftHiveMetastore.java</include>
+                                    </includes>
+                                    <tokenValueMap>${basedir}/src/main/resources/thrift-replacements.txt</tokenValueMap>
+                                    <regex>true</regex>
+                                    <quiet>false</quiet>
+                                </configuration>
+                            </execution>
                             <execution>
                                 <id>process-thrift-sources-interface-annotations</id>
                                 <goals>

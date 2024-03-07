@@ -22,7 +22,7 @@ import org.apache.hadoop.classification.InterfaceAudience;
 import org.apache.hadoop.classification.InterfaceStability;
 import org.apache.kyuubi.shaded.hive.metastore.annotation.NoReconnect;
 import org.apache.kyuubi.shaded.hive.metastore.api.MetaException;
-import org.apache.thrift.TException;
+import org.apache.kyuubi.shaded.thrift.TException;
 
 /** Wrapper around hive metastore thrift api */
 @InterfaceAudience.Public
