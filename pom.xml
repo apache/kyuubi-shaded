@@ -54,6 +54,7 @@
         <module>kyuubi-relocated-force-shading</module>
         <module>kyuubi-relocated-hive-metastore-client</module>
         <module>kyuubi-relocated-hive-service-rpc</module>
+        <module>kyuubi-relocated-spark-connect-rpc</module>
         <module>kyuubi-relocated-thrift</module>
         <module>kyuubi-relocated-zookeeper-parent</module>
     </modules>
@@ -97,6 +98,7 @@
         <maven.plugin.surefire.version>3.0.0-M8</maven.plugin.surefire.version>
         <maven.plugin.spotless.version>2.30.0</maven.plugin.spotless.version>
         <maven.plugin.jacoco.version>0.8.7</maven.plugin.jacoco.version>
+        <maven.plugin.os.version>1.7.1</maven.plugin.os.version>
         <maven.plugin.shade.version>3.4.1</maven.plugin.shade.version>
 
         <!-- Needed for consistent times -->
@@ -457,6 +459,13 @@
                 </executions>
             </plugin>
         </plugins>
+        <extensions>
+            <extension>
+                <groupId>kr.motd.maven</groupId>
+                <artifactId>os-maven-plugin</artifactId>
+                <version>${maven.plugin.os.version}</version>
+            </extension>
+        </extensions>
     </build>
 
     <profiles>
