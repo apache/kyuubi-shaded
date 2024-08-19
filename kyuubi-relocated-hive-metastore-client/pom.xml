@@ -43,7 +43,7 @@ under the License.
         <thrift.home>you-must-set-this-to-run-thrift</thrift.home>
         <thrift.file>src/main/thrift/hive_metastore.thrift</thrift.file>
         <thrift.gen.dir>${basedir}/src/gen/thrift</thrift.gen.dir>
-        <thrift.args>-I ${thrift.home} -strict --gen java:beans,generated_annotations=undated</thrift.args>
+        <thrift.args>-I ${thrift.home} -strict --gen java:beans,generated_annotations=suppress</thrift.args>
     </properties>
 
     <dependencies>
@@ -177,34 +177,6 @@ under the License.
                                     <tokenValueMap>${basedir}/src/main/resources/thrift-replacements.txt</tokenValueMap>
                                     <regex>true</regex>
                                     <quiet>false</quiet>
-                                </configuration>
-                            </execution>
-                            <execution>
-                                <id>process-thrift-sources-interface-annotations</id>
-                                <goals>
-                                    <goal>replace</goal>
-                                </goals>
-                                <phase>process-sources</phase>
-                                <configuration>
-                                    <basedir>${basedir}/src/gen/thrift/gen-javabean/org/apache/kyuubi/shaded/hive/metastore/api/</basedir>
-                                    <filesToInclude>*.java</filesToInclude>
-                                    <replacements>
-                                        <replacement>
-                                            <token>public class</token>
-                                            <value>@org.apache.hadoop.classification.InterfaceAudience.Public @org.apache.hadoop.classification.InterfaceStability.Stable public class</value>
-                                            <unescape>true</unescape>
-                                        </replacement>
-                                        <replacement>
-                                            <token>public static class</token>
-                                            <value>@org.apache.hadoop.classification.InterfaceAudience.Public @org.apache.hadoop.classification.InterfaceStability.Stable public static class</value>
-                                            <unescape>true</unescape>
-                                        </replacement>
-                                        <replacement>
-                                            <token>public interface</token>
-                                            <value>@org.apache.hadoop.classification.InterfaceAudience.Public @org.apache.hadoop.classification.InterfaceStability.Stable public interface</value>
-                                            <unescape>true</unescape>
-                                        </replacement>
-                                    </replacements>
                                 </configuration>
                             </execution>
                         </executions>
