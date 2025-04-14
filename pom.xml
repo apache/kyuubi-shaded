@@ -22,7 +22,7 @@
     <parent>
         <groupId>org.apache</groupId>
         <artifactId>apache</artifactId>
-        <version>29</version>
+        <version>33</version>
     </parent>
 
     <groupId>org.apache.kyuubi</groupId>
@@ -85,21 +85,21 @@
     </distributionManagement>
 
     <properties>
-        <java.version>1.8</java.version>
-        <maven.version>3.8.8</maven.version>
+        <java.version>8</java.version>
+        <maven.version>3.9.9</maven.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <maven.plugin.build.helper.version>3.3.0</maven.plugin.build.helper.version>
-        <maven.plugin.enforcer.mojo.rules.version>1.6.1</maven.plugin.enforcer.mojo.rules.version>
-        <maven.plugin.flatten.version>1.5.0</maven.plugin.flatten.version>
-        <maven.plugin.surefire.version>3.0.0-M8</maven.plugin.surefire.version>
+        <maven.plugin.enforcer.mojo.rules.version>1.8.0</maven.plugin.enforcer.mojo.rules.version>
+        <maven.plugin.flatten.version>1.6.0</maven.plugin.flatten.version>
+        <maven.plugin.surefire.version>3.2.1</maven.plugin.surefire.version>
         <maven.plugin.spotless.version>2.30.0</maven.plugin.spotless.version>
-        <maven.plugin.jacoco.version>0.8.7</maven.plugin.jacoco.version>
+        <maven.plugin.jacoco.version>0.8.11</maven.plugin.jacoco.version>
         <maven.plugin.os.version>1.7.1</maven.plugin.os.version>
-        <maven.plugin.shade.version>3.4.1</maven.plugin.shade.version>
+        <maven.plugin.shade.version>3.5.2</maven.plugin.shade.version>
 
         <!-- Needed for consistent times -->
         <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss z</maven.build.timestamp.format>
@@ -472,10 +472,10 @@
         <profile>
             <id>java-8</id>
             <activation>
-                <jdk>1.8</jdk>
+                <jdk>8</jdk>
             </activation>
             <properties>
-                <java.version>1.8</java.version>
+                <java.version>8</java.version>
             </properties>
         </profile>
 
