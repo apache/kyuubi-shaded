@@ -27,7 +27,7 @@ github:
   protected_branches: ~
   features:
     issues: true
-    discussions: true
+    discussions: false
     wiki: false
     projects: false
 notifications:
