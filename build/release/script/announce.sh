@@ -24,31 +24,32 @@ RELEASE_DIR="$(cd "$(dirname "$0")"/..; pwd)"
 
 ######### Please modify the variables ##########
 # release version, e.g. 0.1.0
-release_version=${release_version:-""}
+RELEASE_VERSION=${RELEASE_VERSION:-""}
 ################################################
 
-if [[ -z $release_version ]]; then
+if [[ -z $RELEASE_VERSION ]]; then
   echo "Please input release version"
   exit 1
 fi
 
-echo "Release version: ${release_version}"
+echo "Release version: ${RELEASE_VERSION}"
 
 RELEASE_TEMP_DIR=${RELEASE_DIR}/tmp
 mkdir -p ${RELEASE_TEMP_DIR}
-ANNOUNCE=${RELEASE_TEMP_DIR}/${release_version}_announce.temp
+ANNOUNCE=${RELEASE_TEMP_DIR}/${RELEASE_VERSION}_announce.temp
 
 cat >$ANNOUNCE<<EOF
-Title: [ANNOUNCE] Apache Kyuubi Shaded released ${release_version}
+Title: [ANNOUNCE] Apache Kyuubi Shaded v${RELEASE_VERSION} is available
 
 Content:
 Hi all,
 
 The Apache Kyuubi community is pleased to announce that
-Apache Kyuubi Shaded ${release_version} has been released!
+Apache Kyuubi Shaded v${RELEASE_VERSION} has been released!
 
 The full release notes are available at:
-Release Notes: https://kyuubi.apache.org/shaded-release/${release_version}.html
+Release Notes: https://kyuubi.apache.org/shaded-release/${RELEASE_VERSION}.html
+Download Links: https://kyuubi.apache.org/releases.html
 
 To learn more about Apache Kyuubi, please see
 https://kyuubi.apache.org/
