@@ -255,7 +255,7 @@ public abstract class KeeperException extends Exception {
     /** Invalid arguments */
     BADARGUMENTS(BadArguments),
     /**
-     * No quorum of new config is connected and up-to-date with the leader of last commmitted config
+     * No quorum of new config is connected and up-to-date with the leader of last committed config
      * - try invoking reconfiguration after new servers are connected and synced
      */
     NEWCONFIGNOQUORUM(NewConfigNoQuorum),
