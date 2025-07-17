@@ -43,6 +43,8 @@ public class TSaslServerTransport extends TSaslTransport {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(TSaslServerTransport.class);
 
+  private SaslServerFactory saslServerFactory = new JdkSaslServerFactory();
+
   /**
    * Mapping from SASL mechanism name -> all the parameters required to instantiate a SASL server.
    */
@@ -96,6 +98,10 @@ public class TSaslServerTransport extends TSaslTransport {
         mechanism, new TSaslServerDefinition(mechanism, protocol, serverName, props, cbh));
   }
 
+  public void setSaslServerFactory(SaslServerFactory f) {
+    this.saslServerFactory = f;
+  }
+
   @Override
   protected SaslRole getRole() {
     return SaslRole.SERVER;
@@ -125,14 +131,20 @@ public class TSaslServerTransport extends TSaslTransport {
       throw sendAndThrowMessage(
           NegotiationStatus.BAD, "Unsupported mechanism type " + mechanismName);
     }
-    SaslServer saslServer =
-        Sasl.createSaslServer(
-            serverDefinition.mechanism,
-            serverDefinition.protocol,
-            serverDefinition.serverName,
-            serverDefinition.props,
-            serverDefinition.cbh);
+    SaslServer saslServer = saslServerFactory.create(serverDefinition);
     setSaslServer(saslServer);
+  }
+
+  public interface SaslServerFactory {
+    SaslServer create(TSaslServerDefinition d) throws SaslException;
+  }
+
+  public static class JdkSaslServerFactory implements SaslServerFactory {
+
+    @Override
+    public SaslServer create(TSaslServerDefinition d) throws SaslException {
+      return Sasl.createSaslServer(d.mechanism, d.protocol, d.serverName, d.props, d.cbh);
+    }
   }
 
   /**
@@ -155,6 +167,8 @@ public class TSaslServerTransport extends TSaslTransport {
      * Mapping from SASL mechanism name -> all the parameters required to instantiate a SASL server.
      */
     private Map<String, TSaslServerDefinition> serverDefinitionMap = new HashMap<>();
+
+    private SaslServerFactory saslServerFactory = new JdkSaslServerFactory();
 
     /** Create a new Factory. Assumes that <code>addServerDefinition</code> will be called later. */
     public Factory() {
@@ -190,6 +204,10 @@ public class TSaslServerTransport extends TSaslTransport {
           mechanism, new TSaslServerDefinition(mechanism, protocol, serverName, props, cbh));
     }
 
+    public void setSaslServerFactory(SaslServerFactory f) {
+      this.saslServerFactory = f;
+    }
+
     /**
      * Get a new <code>TSaslServerTransport</code> instance, or reuse the existing one if a <code>
      * TSaslServerTransport</code> has already been created before using the given <code>TTransport
@@ -201,7 +219,9 @@ public class TSaslServerTransport extends TSaslTransport {
       WeakReference<TSaslServerTransport> ret = transportMap.get(base);
       if (ret == null || ret.get() == null) {
         LOGGER.debug("transport map does not contain key {}", base);
-        ret = new WeakReference<>(new TSaslServerTransport(serverDefinitionMap, base));
+        TSaslServerTransport t = new TSaslServerTransport(serverDefinitionMap, base);
+        t.setSaslServerFactory(saslServerFactory);
+        ret = new WeakReference<>(t);
         try {
           ret.get().open();
         } catch (TTransportException e) {
