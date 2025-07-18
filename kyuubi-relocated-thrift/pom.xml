@@ -32,11 +32,18 @@ under the License.
     <description>Relocated Thrift classes used by Kyuubi internally.</description>
 
     <properties>
+        <slf4j.version>1.7.36</slf4j.version>
         <fb303.version>0.9.3</fb303.version>
         <thrift.version>0.16.0</thrift.version>
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+            <scope>provided</scope>
+        </dependency>
         <dependency>
             <groupId>org.apache.thrift</groupId>
             <artifactId>libfb303</artifactId>
