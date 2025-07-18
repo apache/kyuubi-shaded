@@ -90,7 +90,7 @@ def clean_up():
             run_cmd("git branch -D %s" % branch)
 
 def fix_title(text, num):
-    if (re.search(r'^\[KYUUBI\s#[0-9]{3,6}\].*', text)):
+    if (re.search(r'^\[KYUUBI(-SHADED)?\s#[0-9]{2,6}\].*', text)):
         return text
 
     return '[KYUUBI-SHADED #%s] %s' % (num, text)
