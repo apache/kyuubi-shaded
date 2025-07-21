@@ -459,13 +459,6 @@
                 </executions>
             </plugin>
         </plugins>
-        <extensions>
-            <extension>
-                <groupId>kr.motd.maven</groupId>
-                <artifactId>os-maven-plugin</artifactId>
-                <version>${maven.plugin.os.version}</version>
-            </extension>
-        </extensions>
     </build>
 
     <profiles>
