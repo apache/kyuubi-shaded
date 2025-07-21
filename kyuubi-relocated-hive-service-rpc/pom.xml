@@ -25,7 +25,7 @@ under the License.
     <parent>
         <groupId>org.apache.kyuubi</groupId>
         <artifactId>kyuubi-relocated-parent</artifactId>
-        <version>0.6.0-SNAPSHOT</version>
+        <version>0.6.0</version>
     </parent>
 
     <artifactId>kyuubi-relocated-hive-service-rpc</artifactId>
