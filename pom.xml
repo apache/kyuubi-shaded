@@ -31,6 +31,7 @@
     <packaging>pom</packaging>
 
     <url>https://kyuubi.apache.org/</url>
+    <inceptionYear>2023</inceptionYear>
 
     <licenses>
         <license>
@@ -101,6 +102,9 @@
         <maven.plugin.jacoco.version>0.8.11</maven.plugin.jacoco.version>
         <maven.plugin.os.version>1.7.1</maven.plugin.os.version>
         <maven.plugin.shade.version>3.5.2</maven.plugin.shade.version>
+
+        <!-- Needed for reproducible builds -->
+        <project.build.outputTimestamp>2026-10-28T00:00:00Z</project.build.outputTimestamp>
 
         <!-- Needed for consistent times -->
         <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss z</maven.build.timestamp.format>
