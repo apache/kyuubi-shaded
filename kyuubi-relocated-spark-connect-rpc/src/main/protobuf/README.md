@@ -1,5 +1,5 @@
 proto files are copied from
-https://github.com/apache/spark/tree/v4.0.0-rc4/sql/connect/common/src/main/protobuf
+https://github.com/apache/spark/tree/v4.3.0-rc3/sql/connect/common/src/main/protobuf
 
 and with one additional change in each proto file
 ```patch
