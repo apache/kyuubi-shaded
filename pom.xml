@@ -31,6 +31,7 @@
     <packaging>pom</packaging>
 
     <url>https://kyuubi.apache.org/</url>
+    <inceptionYear>2023</inceptionYear>
 
     <licenses>
         <license>
@@ -208,6 +209,22 @@
                                 <pattern>${maven.build.timestamp.format}</pattern>
                                 <timeSource>current</timeSource>
                                 <timeZone>Asia/Shanghai</timeZone>
+                                <locale>en_US</locale>
+                            </configuration>
+                        </execution>
+                        <execution>
+                            <!-- Use the build wall clock instead of the outputTimestamp inherited
+                              from the ASF parent POM, which sets the year of generated NOTICE -->
+                            <id>output-timestamp-property</id>
+                            <goals>
+                                <goal>timestamp-property</goal>
+                            </goals>
+                            <phase>validate</phase>
+                            <configuration>
+                                <name>project.build.outputTimestamp</name>
+                                <pattern>yyyy-MM-dd'T'HH:mm:ss'Z'</pattern>
+                                <timeSource>build</timeSource>
+                                <timeZone>UTC</timeZone>
                                 <locale>en_US</locale>
                             </configuration>
                         </execution>
