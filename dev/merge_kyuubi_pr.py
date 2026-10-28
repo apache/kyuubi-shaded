@@ -17,13 +17,13 @@
 # limitations under the License.
 #
 
-# Utility for creating well-formed pull request merges and pushing them to Kyuubi
+# Utility for creating well-formed pull request merges and pushing them to Kyuubi Shaded
 # For committers:
 # Please check your local git envs via `git remote -v` which should
-# apache	git@github.com:apache/kyuubi.git (fetch)
-# apache	git@github.com:apache/kyuubi.git (push)
-# origin	git@github.com:[ YOUR GITHUB USER NAME ]/kyuubi.git (fetch)
-# origin	git@github.com:[ YOUR GITHUB USER NAME ]/kyuubi.git (push)
+# apache	git@github.com:apache/kyuubi-shaded.git (fetch)
+# apache	git@github.com:apache/kyuubi-shaded.git (push)
+# origin	git@github.com:[ YOUR GITHUB USER NAME ]/kyuubi-shaded.git (fetch)
+# origin	git@github.com:[ YOUR GITHUB USER NAME ]/kyuubi-shaded.git (push)
 # Set GITHUB_OAUTH_KEY to post merge summary comments and close branch-target PRs.
 
 import json
@@ -305,7 +305,7 @@ def merge_pr(pr_num, target_ref, title, body, pr_repo_desc, pr_author, co_author
     merge_message_flags += ["-m", title]
     if body is not None:
         # We remove @ symbols from the body to avoid triggering e-mails
-        # to people every time someone creates a public fork of Kyuubi.
+        # to people every time someone creates a public fork of Kyuubi Shaded.
         merge_message_flags += ["-m", body.replace("@", "")]
 
     committer_name = run_cmd("git config --get user.name").strip()
@@ -321,8 +321,8 @@ def merge_pr(pr_num, target_ref, title, body, pr_repo_desc, pr_author, co_author
     # The string "Closes #%s" string is required for GitHub to correctly close the PR
     merge_message_flags += ["-m", "Closes #%s from %s." % (pr_num, pr_repo_desc)]
 
-    for issueId in re.findall("KYUUBI-SHADED #[0-9]{3,5}", title):
-        merge_message_flags += ["-m", issueId.replace("KYUUBI", "Closes")]
+    for issue_num in re.findall(r"KYUUBI-SHADED #([0-9]+)", title):
+        merge_message_flags += ["-m", "Closes #%s" % issue_num]
 
     for c in commits:
         merge_message_flags += ["-m", c]
