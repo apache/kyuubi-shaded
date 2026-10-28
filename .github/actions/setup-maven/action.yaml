@@ -21,10 +21,11 @@ runs:
   using: composite
   steps:
     - name: Restore cached Maven
-      uses: actions/cache@v4
+      uses: actions/cache@v6
       with:
         path: build/apache-maven-*
         key: setup-maven-${{ hashFiles('pom.xml') }}
+        restore-keys: setup-maven-
     - name: Install Maven
       shell: bash
       run: build/mvn -v
